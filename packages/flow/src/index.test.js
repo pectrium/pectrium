@@ -28,7 +28,7 @@ test("bounded handler retries and persisted counters",async()=>{
 });
 test("uncloneable output after side effect never retries",async()=>{
   let sideEffects=0;
-  await assert.rejects(executeWorkflow(w([{id:"a",retries:4,run:()=>{sideEffects++;return ()=>1;}}])),error=>{
+  await assert.rejects(executeWorkflow(w([{id:"a",retries:4,run:()=>{sideEffects++;return ()=>1;}}]),{checkpointMode:"durable",onCheckpoint:async()=>{}}),error=>{
     assert.ok(error instanceof OutputCaptureError);
     assert.equal(error.stepId,"a");assert.equal(error.attempt,1);
     assert.equal(error.acknowledgedCheckpoint.steps.a.status,"running");
