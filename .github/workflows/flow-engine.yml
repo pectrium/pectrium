@@ -1,0 +1,23 @@
+name: Flow engine tests
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/core/**'
+      - 'packages/flow/**'
+      - '.github/workflows/flow-engine.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  flow-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Core contracts
+        run: node --test packages/core/src/index.test.js
+      - name: Flow execution
+        run: node --test packages/flow/src/index.test.js
