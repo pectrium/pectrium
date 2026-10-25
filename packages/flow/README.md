@@ -17,3 +17,53 @@ This package is a **sequential, in-process** workflow executor, not a hosted ser
 ## Deferred follow-up
 
 Plan explicit run identity, durable compare-and-set sequence numbers, worker ownership, operator-controlled resolution and distributed recovery as a separate milestone. Do not infer that these features exist today.
+
+## Checkpoint execution modes
+
+`executeWorkflow(workflow, { checkpointMode: "memory" })` runs without a persistence
+callback. This is the default when `onCheckpoint` is absent. Its returned
+`checkpoint` is an **in-memory snapshot only**; it must not be treated as an
+acknowledged durable write or a crash-safe recovery record.
+
+`executeWorkflow(workflow, { checkpointMode: "durable", onCheckpoint })`
+requires a callback that resolves **only after** the checkpoint is durably
+stored. Passing `onCheckpoint` without `checkpointMode` selects durable
+mode for backward compatibility. Explicit memory mode rejects a callback to
+avoid ambiguous durability claims.
+
+The executor never supplies its own durable storage. Callers are responsible
+for storage atomicity, persistence, ownership, and serializing the checkpoint.
+If the callback resolves without durable storage, the engine cannot detect
+that false acknowledgement. The `acknowledgedCheckpoint` on errors is only
+the last callback-acknowledged snapshot, **not proof of physical durability**.
+
+On restart, a durable `succeeded` checkpoint skips committed steps; a
+`failed` checkpoint remains terminal; a `running` checkpoint produces
+`RecoveryRequiredError` and **must not** be replayed without external
+reconciliation. A failed intent write prevents execution in that invocation.
+A failed success write can leave an external effect completed but uncommitted;
+the last acknowledged `running` checkpoint deliberately blocks automatic
+replay. A durable `pending` checkpoint after a handler failure may be
+retried up to the remaining attempt budget; side effects can therefore repeat.
+
+## Milestone boundary and CI status classification
+
+Concurrent workflow execution, distributed ownership/locking, automatic
+external-effect reconciliation, compare-and-set writes and operator recovery
+interfaces are **outside Milestone 02**.
+
+Flow CI installs only the local `@pectrium/flow...` workspace graph using
+pnpm 10.16.1 and Node 22. The repository has no committed pnpm lockfile.
+This isolates Flow from the unrelated web app's dependency resolution but
+**does not establish reproducible dependency installation for the full
+monorepo**. A repository-wide lockfile and frozen installs must be addressed
+in a separately approved workspace-dependency task before claiming that
+property.
+
+The Vercel status `pectrium-cinematic-preview` failed for the reviewed
+commit because the Vercel project still points at the absent `apps/cinematic`
+root directory (`NOW_SANDBOX_WORKER_ROOTDIR_NOT_EXIST`). This is a stale
+deployment configuration, not a Flow test failure. It is **not waived**
+automatically: repository branch protection and required status checks must
+be inspected before any merge decision. Do not recreate `apps/cinematic`
+or change Vercel settings in this PR.
