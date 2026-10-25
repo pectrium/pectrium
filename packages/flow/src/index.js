@@ -102,9 +102,16 @@ function validateCheckpoint(cp, workflow, ids, hash, ordered) {
  * A running checkpoint is never automatically replayed. Cancellation is cooperative.
  * Callers must change workflow.revision when handler behavior or execution semantics change.
  */
-export async function executeWorkflow(workflow, { checkpoint, onCheckpoint = async () => {}, signal } = {}) {
+export async function executeWorkflow(workflow, { checkpoint, onCheckpoint, checkpointMode, signal } = {}) {
+  // Explicit durable mode requires an acknowledged persistence callback. Without one,
+  // checkpoints are in-memory snapshots and must never be presented as durable.
+  const mode = checkpointMode ?? (onCheckpoint === undefined ? "memory" : "durable");
+  if (!["memory", "durable"].includes(mode)) throw new TypeError("checkpointMode must be memory or durable");
+  if (mode === "durable" && typeof onCheckpoint !== "function")
+    throw new TypeError("Durable mode requires an onCheckpoint persistence callback");
+  if (mode === "memory" && onCheckpoint !== undefined)
+    throw new TypeError("Memory mode does not accept a durability callback");
   const ordered = assertWorkflow(workflow);
-  if (typeof onCheckpoint !== "function") throw new TypeError("onCheckpoint must be a function");
   const ids = ordered.map(s => s.id);
   const hash = fingerprint(workflow);
   const steps = Object.fromEntries(ids.map(id => [id, {status:"pending", attempts:0}]));
@@ -113,13 +120,14 @@ export async function executeWorkflow(workflow, { checkpoint, onCheckpoint = asy
     const restored = jsonCopy(checkpoint.steps);
     for (const id of ids) steps[id] = restored[id];
   }
-  let acknowledgedCheckpoint = checkpoint === undefined ? null : jsonCopy(checkpoint);
+  let acknowledgedCheckpoint = mode === "durable" && checkpoint !== undefined ? jsonCopy(checkpoint) : null;
   let terminalHandlerError = null;
   const snapshot = () => jsonCopy({
     version:1,workflowId:workflow.id,revision:workflow.revision,fingerprint:hash,stepIds:ids,steps
   });
   async function persist(step) {
     const tentativeCheckpoint = snapshot();
+    if (mode === "memory") return;
     try {
       await onCheckpoint(jsonCopy(tentativeCheckpoint));
       acknowledgedCheckpoint = tentativeCheckpoint;
@@ -184,5 +192,6 @@ export async function executeWorkflow(workflow, { checkpoint, onCheckpoint = asy
   const statuses = ids.map(id => steps[id].status);
   const status = statuses.every(s => s === "succeeded") ? "succeeded" :
     statuses.includes("failed") ? "failed" : statuses.includes("cancelled") ? "cancelled" : "pending";
-  return {status,checkpoint:snapshot(),...(terminalHandlerError ? {error:terminalHandlerError} : {})};
+  return {status,checkpoint:snapshot(),checkpointMode:mode,
+    ...(terminalHandlerError ? {error:terminalHandlerError} : {})};
 }
