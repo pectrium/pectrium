@@ -24,8 +24,9 @@ jobs:
           node-version: '22'
           cache: pnpm
           cache-dependency-path: pnpm-workspace.yaml
-      - name: Install workspace dependencies
-        run: pnpm install --no-frozen-lockfile
+      # Flow/Core depend only on local workspace packages. Avoid resolving the unrelated web app.
+      - name: Install isolated Flow workspace dependencies
+        run: pnpm install --filter @pectrium/flow... --lockfile=false --ignore-scripts
       - name: Run all core tests
         run: pnpm --filter @pectrium/core test
       - name: Run all Flow tests
