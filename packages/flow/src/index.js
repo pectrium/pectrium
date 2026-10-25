@@ -114,6 +114,7 @@ export async function executeWorkflow(workflow, { checkpoint, onCheckpoint = asy
     for (const id of ids) steps[id] = restored[id];
   }
   let acknowledgedCheckpoint = checkpoint === undefined ? null : jsonCopy(checkpoint);
+  let terminalHandlerError = null;
   const snapshot = () => jsonCopy({
     version:1,workflowId:workflow.id,revision:workflow.revision,fingerprint:hash,stepIds:ids,steps
   });
@@ -155,7 +156,13 @@ export async function executeWorkflow(workflow, { checkpoint, onCheckpoint = asy
         state.failureReason = "handler";
         state.status = state.attempts < maxAttempts ? "pending" : "failed";
         await persist(step); // Not inside the handler retry catch.
-        if (state.status === "failed") break;
+        if (state.status === "failed") {
+          terminalHandlerError = new HandlerExecutionError("Handler exhausted retry budget", {
+            workflowId:workflow.id,stepId:step.id,attempt:state.attempts,cause:handlerError,
+            acknowledgedCheckpoint
+          });
+          break;
+        }
         continue;
       }
       try {
@@ -177,5 +184,5 @@ export async function executeWorkflow(workflow, { checkpoint, onCheckpoint = asy
   const statuses = ids.map(id => steps[id].status);
   const status = statuses.every(s => s === "succeeded") ? "succeeded" :
     statuses.includes("failed") ? "failed" : statuses.includes("cancelled") ? "cancelled" : "pending";
-  return {status,checkpoint:snapshot()};
+  return {status,checkpoint:snapshot(),...(terminalHandlerError ? {error:terminalHandlerError} : {})};
 }
