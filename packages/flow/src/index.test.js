@@ -1,49 +1,153 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { executeWorkflow } from "./index.js";
-test("dependency order, values, and checkpoints", async () => {
+import { executeWorkflow, OutputCaptureError, CheckpointPersistenceError, RecoveryRequiredError, IncompatibleCheckpointError } from "./index.js";
+const w = steps => ({id:"w",revision:"v1",steps});
+test("deterministic dependency order, values and successful resume",async()=>{
   const calls=[], saved=[];
-  const workflow={id:"w",steps:[
-    {id:"b",dependsOn:["a"],run:({results})=>{calls.push("b");return results.a+1;}},
-    {id:"a",run:()=>{calls.push("a");return 2;}}
-  ]};
+  const workflow=w([{id:"b",dependsOn:["a"],run:({results})=>{calls.push("b");return results.a+1;}},{id:"a",run:()=>{calls.push("a");return 2;}}]);
   const result=await executeWorkflow(workflow,{onCheckpoint:c=>saved.push(c)});
   assert.equal(result.status,"succeeded");
   assert.deepEqual(calls,["a","b"]);
   assert.equal(result.checkpoint.steps.b.value,3);
+  assert.match(result.checkpoint.fingerprint,/^[a-f0-9]{64}$/);
   assert.equal(saved.at(-1).steps.b.status,"succeeded");
-  const resumed=await executeWorkflow(workflow,{checkpoint:result.checkpoint});
-  assert.equal(resumed.status,"succeeded");
+  await executeWorkflow(workflow,{checkpoint:result.checkpoint});
   assert.deepEqual(calls,["a","b"]);
 });
-test("retries are bounded; downstream does not execute after failure",async()=>{
-  let attempts=0, downstream=0;
-  const result=await executeWorkflow({id:"w",steps:[
-    {id:"a",retries:2,run:()=>{attempts++;throw Error("failure");}},
-    {id:"b",dependsOn:["a"],run:()=>downstream++}
-  ]});
+test("bounded handler retries and persisted counters",async()=>{
+  let attempts=0,downstream=0;
+  const workflow=w([{id:"a",retries:2,run:()=>{attempts++;throw Error("failed");}},{id:"b",dependsOn:["a"],run:()=>downstream++}]);
+  const saved=[];
+  const result=await executeWorkflow(workflow,{onCheckpoint:c=>saved.push(c)});
   assert.equal(result.status,"failed");
+  assert.equal(attempts,3);assert.equal(downstream,0);
+  assert.deepEqual(saved.filter(c=>c.steps.a.status==="running").map(c=>c.steps.a.attempts),[1,2,3]);
+  assert.equal(result.checkpoint.steps.a.failureReason,"handler");
+  await executeWorkflow(workflow,{checkpoint:result.checkpoint});
   assert.equal(attempts,3);
-  assert.equal(downstream,0);
 });
-test("cancel before execution and reject uncertain running checkpoints",async()=>{
+test("uncloneable output after side effect never retries",async()=>{
+  let sideEffects=0;
+  await assert.rejects(executeWorkflow(w([{id:"a",retries:4,run:()=>{sideEffects++;return ()=>1;}}])),error=>{
+    assert.ok(error instanceof OutputCaptureError);
+    assert.equal(error.stepId,"a");assert.equal(error.attempt,1);
+    assert.equal(error.acknowledgedCheckpoint.steps.a.status,"running");
+    return true;
+  });
+  assert.equal(sideEffects,1);
+});
+test("undefined and nonfinite outputs are rejected without retries",async()=>{
+  for(const value of [undefined,NaN,Infinity,1n,new Date(),{nested:undefined}]) {
+    let calls=0;
+    await assert.rejects(executeWorkflow(w([{id:"a",retries:2,run:()=>{calls++;return value;}}])),OutputCaptureError);
+    assert.equal(calls,1);
+  }
+});
+test("failure before handler execution exposes tentative and acknowledged snapshots",async()=>{
+  let called=0;
+  await assert.rejects(executeWorkflow(w([{id:"a",run:()=>called++}]),{
+    onCheckpoint:()=>{throw Error("disk down");}
+  }),e=>{
+    assert.ok(e instanceof CheckpointPersistenceError);
+    assert.equal(e.tentativeCheckpoint.steps.a.status,"running");
+    assert.equal(e.acknowledgedCheckpoint,null);
+    assert.equal(e.cause.message,"disk down");
+    return true;
+  });
+  assert.equal(called,0);
+});
+test("failure persisting success does not rerun completed side effect",async()=>{
+  let calls=0;
+  await assert.rejects(executeWorkflow(w([{id:"a",retries:3,run:()=>{calls++;return 5;}}]),{
+    onCheckpoint:cp=>{if(cp.steps.a.status==="succeeded")throw Error("storage unavailable");}
+  }),e=>{
+    assert.ok(e instanceof CheckpointPersistenceError);
+    assert.equal(e.tentativeCheckpoint.steps.a.status,"succeeded");
+    assert.equal(e.acknowledgedCheckpoint.steps.a.status,"running");
+    return true;
+  });
+  assert.equal(calls,1);
+});
+test("failure recording handler retry stops execution without additional invocation",async()=>{
+  let calls=0;
+  await assert.rejects(executeWorkflow(w([{id:"a",retries:2,run:()=>{calls++;throw Error("handler");}}]),{
+    onCheckpoint:cp=>{if(cp.steps.a.status==="pending" && cp.steps.a.attempts===1)throw Error("write failure");}
+  }),CheckpointPersistenceError);
+  assert.equal(calls,1);
+});
+test("failure recording terminal handler failure stops execution",async()=>{
+  let calls=0;
+  await assert.rejects(executeWorkflow(w([{id:"a",run:()=>{calls++;throw Error("handler");}}]),{
+    onCheckpoint:cp=>{if(cp.steps.a.status==="failed")throw Error("write failure");}
+  }),CheckpointPersistenceError);
+  assert.equal(calls,1);
+});
+test("running checkpoint requires recovery and never reruns",async()=>{
+  let calls=0, running;
+  const workflow=w([{id:"a",run:()=>{calls++;return 1;}}]);
+  await executeWorkflow(workflow,{onCheckpoint:cp=>{if(cp.steps.a.status==="running")running=cp;}});
+  await assert.rejects(executeWorkflow(workflow,{checkpoint:running}),e=>{
+    assert.ok(e instanceof RecoveryRequiredError);
+    assert.equal(e.stepId,"a");assert.equal(e.attempt,1);
+    return true;
+  });
+  assert.equal(calls,1);
+});
+test("revision and definition mismatch reject before handler invocation",async()=>{
+  let calls=0;
+  const workflow=w([{id:"a",run:()=>{calls++;return 1;}}]);
+  const result=await executeWorkflow(workflow);
+  for(const changed of [{...workflow,revision:"v2"},{...workflow,steps:[{...workflow.steps[0],retries:1}]}]){
+    await assert.rejects(executeWorkflow(changed,{checkpoint:result.checkpoint}),IncompatibleCheckpointError);
+  }
+  assert.equal(calls,1);
+});
+test("malformed checkpoint matrix rejected before execution",async()=>{
+  let calls=0;
+  const workflow=w([{id:"a",run:()=>{calls++;return 1;}}]);
+  const valid=(await executeWorkflow(workflow)).checkpoint;
+  const mutations=[
+    cp=>{delete cp.revision;},cp=>{cp.extra=true;},cp=>{cp.version=99;},
+    cp=>{cp.steps.extra={status:"pending",attempts:0};},
+    cp=>{delete cp.steps.a;},cp=>{cp.steps.a.status="unknown";},
+    cp=>{cp.steps.a.attempts=-1;},cp=>{cp.steps.a.attempts=99;},
+    cp=>{cp.steps.a.value=NaN;},cp=>{cp.steps.a.value={nested:undefined};},
+    cp=>{cp.steps.a.failureReason="handler";},
+    cp=>{cp.steps.a.status="failed";},
+    cp=>{cp.steps.a.status="pending";},
+    cp=>{cp.steps.a.extra=true;},
+    cp=>{cp.fingerprint="incorrect";}
+  ];
+  for(const mutate of mutations) {
+    const cp=structuredClone(valid);mutate(cp);
+    await assert.rejects(executeWorkflow(workflow,{checkpoint:cp}));
+  }
+  assert.equal(calls,1);
+});
+test("downstream mutation cannot change committed results",async()=>{
+  const workflow=w([
+    {id:"a",run:()=>({nested:{count:1}})},
+    {id:"b",dependsOn:["a"],run:({results})=>{results.a.nested.count=999;return true;}},
+    {id:"c",dependsOn:["b"],run:({results})=>results.a.nested.count}
+  ]);
+  const result=await executeWorkflow(workflow);
+  assert.equal(result.checkpoint.steps.a.value.nested.count,1);
+  assert.equal(result.checkpoint.steps.c.value,1);
+});
+test("cooperative cancellation during active handler prevents next step",async()=>{
+  const controller=new AbortController();let next=0;
+  const result=await executeWorkflow(w([
+    {id:"a",run:()=>{controller.abort();return 1;}},
+    {id:"b",dependsOn:["a"],run:()=>next++}
+  ]),{signal:controller.signal});
+  assert.equal(result.status,"cancelled");
+  assert.equal(result.checkpoint.steps.a.status,"succeeded");
+  assert.equal(result.checkpoint.steps.b.status,"cancelled");
+  assert.equal(next,0);
+});
+test("cancel before execution",async()=>{
   const controller=new AbortController();controller.abort();
   let calls=0;
-  const workflow={id:"w",steps:[{id:"a",run:()=>calls++}]};
-  const result=await executeWorkflow(workflow,{signal:controller.signal});
+  const result=await executeWorkflow(w([{id:"a",run:()=>calls++}]),{signal:controller.signal});
   assert.equal(result.status,"cancelled");assert.equal(calls,0);
-  const unsafe=structuredClone(result.checkpoint);unsafe.steps.a.status="running";
-  await assert.rejects(executeWorkflow(workflow,{checkpoint:unsafe}),/Unsafe checkpoint/);
-});
-test("checkpoint write failure prevents step execution",async()=>{
-  let called=false;
-  await assert.rejects(executeWorkflow({id:"w",steps:[{id:"a",run:()=>{called=true;}}]},{
-    onCheckpoint:()=>{throw Error("storage down");}
-  }),/storage down/);
-  assert.equal(called,false);
-});
-test("rejects mismatched checkpoints",async()=>{
-  await assert.rejects(executeWorkflow({id:"w",steps:[{id:"a",run:()=>{}}]},{
-    checkpoint:{version:1,workflowId:"different",stepIds:["a"],steps:{}}
-  }),/Incompatible checkpoint/);
 });
