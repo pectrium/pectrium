@@ -72,7 +72,7 @@ function validateCheckpoint(cp, workflow, ids, hash, ordered) {
         (s.status === "running" && s.attempts === 0) ||
         (s.status === "succeeded" && s.attempts === 0) ||
         (s.status === "failed" && s.attempts !== (step.retries ?? 0) + 1) ||
-        (s.status === "cancelled" && s.attempts !== 0)) invalid("Impossible step attempt state");
+        (s.status === "cancelled" && s.attempts > (step.retries ?? 0))) invalid("Impossible step attempt state");
     if (s.status === "succeeded") {
       if (!own(s,"value") || own(s,"error") || own(s,"failureReason")) invalid("Invalid succeeded state");
       try { jsonCopy(s.value); } catch { invalid("Invalid checkpoint result"); }
@@ -133,7 +133,7 @@ export async function executeWorkflow(workflow, { checkpoint, onCheckpoint = asy
     const state = steps[step.id];
     if (state.status === "succeeded") continue;
     if (state.status !== "pending") break;
-    if (signal?.aborted) { state.status = "cancelled"; await persist(step); break; }
+    if (signal?.aborted) { state.status = "cancelled"; delete state.error; delete state.failureReason; await persist(step); break; }
     if ((step.dependsOn ?? []).some(id => steps[id].status !== "succeeded")) break;
     const maxAttempts = (step.retries ?? 0) + 1;
     while (state.attempts < maxAttempts) {
@@ -141,15 +141,16 @@ export async function executeWorkflow(workflow, { checkpoint, onCheckpoint = asy
       state.attempts++;
       state.status = "running";
       await persist(step); // A failed intent write prevents handler invocation.
-      let result, handlerError;
+      let result, handlerError, handlerFailed = false;
       try {
         result = await step.run({signal, results:jsonCopy(Object.fromEntries(
           ids.filter(id => steps[id].status === "succeeded").map(id => [id, steps[id].value])
         ))});
       } catch (error) {
         handlerError = error;
+        handlerFailed = true;
       }
-      if (handlerError !== undefined) {
+      if (handlerFailed) {
         state.error = String(handlerError instanceof Error ? handlerError.message : handlerError);
         state.failureReason = "handler";
         state.status = state.attempts < maxAttempts ? "pending" : "failed";
