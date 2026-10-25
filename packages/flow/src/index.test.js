@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { executeWorkflow, OutputCaptureError, CheckpointPersistenceError, RecoveryRequiredError, IncompatibleCheckpointError } from "./index.js";
+import { executeWorkflow, HandlerExecutionError, OutputCaptureError, CheckpointPersistenceError, RecoveryRequiredError, IncompatibleCheckpointError } from "./index.js";
 const w = steps => ({id:"w",revision:"v1",steps});
 test("deterministic dependency order, values and successful resume",async()=>{
   const calls=[], saved=[];
@@ -150,4 +150,22 @@ test("cancel before execution",async()=>{
   let calls=0;
   const result=await executeWorkflow(w([{id:"a",run:()=>calls++}]),{signal:controller.signal});
   assert.equal(result.status,"cancelled");assert.equal(calls,0);
+});
+
+test("terminal handler failure exposes typed context",async()=>{
+  const result=await executeWorkflow(w([{id:"a",run:()=>{throw Error("boom");}}]));
+  assert.equal(result.status,"failed");
+  assert.ok(result.error instanceof HandlerExecutionError);
+  assert.equal(result.error.stepId,"a");
+  assert.equal(result.error.attempt,1);
+  assert.equal(result.error.cause.message,"boom");
+});
+test("persisted pending retry resumes at the next attempt",async()=>{
+  let calls=0, pending;
+  const workflow=w([{id:"a",retries:2,run:()=>{calls++;if(calls===1)throw Error("temporary");return "ok";}}]);
+  await executeWorkflow(workflow,{onCheckpoint:cp=>{if(cp.steps.a.status==="pending" && cp.steps.a.attempts===1)pending=cp;}});
+  const result=await executeWorkflow(workflow,{checkpoint:pending});
+  assert.equal(result.status,"succeeded");
+  assert.equal(result.checkpoint.steps.a.attempts,2);
+  assert.equal(calls,3); // First full execution made two calls; restored pending checkpoint makes one more.
 });
