@@ -169,3 +169,88 @@ test("persisted pending retry resumes at the next attempt",async()=>{
   assert.equal(result.checkpoint.steps.a.attempts,2);
   assert.equal(calls,3); // First full execution made two calls; restored pending checkpoint makes one more.
 });
+
+test("memory mode is explicitly non-durable and rejects false durability claims",async()=>{
+  let calls=0;
+  const workflow=w([{id:"a",run:()=>{calls++;return 1;}}]);
+  const result=await executeWorkflow(workflow,{checkpointMode:"memory"});
+  assert.equal(result.checkpointMode,"memory");
+  assert.equal(result.status,"succeeded");
+  assert.equal(calls,1);
+  await assert.rejects(executeWorkflow(workflow,{checkpointMode:"durable"}),/requires an onCheckpoint/);
+  await assert.rejects(executeWorkflow(workflow,{checkpointMode:"memory",onCheckpoint:()=>{}}),/does not accept/);
+  assert.equal(calls,1);
+});
+test("durable JSON checkpoint survives process-style restart and skips committed effects",async()=>{
+  let stored=null,first=0,second=0;
+  const workflow=w([
+    {id:"a",run:()=>{first++;return {count:7};}},
+    {id:"b",dependsOn:["a"],run:({results})=>{second++;return results.a.count+1;}}
+  ]);
+  const save=async cp=>{stored=JSON.stringify(cp);};
+  const initial=await executeWorkflow(workflow,{checkpointMode:"durable",onCheckpoint:save});
+  assert.equal(initial.status,"succeeded");
+  assert.equal(initial.checkpointMode,"durable");
+  assert.equal(JSON.parse(stored).steps.b.value,8);
+  const restarted=await executeWorkflow(workflow,{
+    checkpoint:JSON.parse(stored),checkpointMode:"durable",onCheckpoint:save
+  });
+  assert.equal(restarted.status,"succeeded");
+  assert.deepEqual([first,second],[1,1]);
+});
+test("durable crash after running intent demands recovery without replay",async()=>{
+  let persisted=null,calls=0;
+  const workflow=w([{id:"external",retries:3,run:()=>{calls++;return "charged";}}]);
+  await assert.rejects(executeWorkflow(workflow,{
+    checkpointMode:"durable",
+    onCheckpoint:async cp=>{
+      if(cp.steps.external.status==="running")persisted=JSON.stringify(cp);
+      if(cp.steps.external.status==="succeeded")throw Error("durable store offline");
+    }
+  }),CheckpointPersistenceError);
+  assert.equal(calls,1);
+  assert.equal(JSON.parse(persisted).steps.external.status,"running");
+  await assert.rejects(executeWorkflow(workflow,{
+    checkpointMode:"durable",checkpoint:JSON.parse(persisted),
+    onCheckpoint:async()=>{throw Error("should not write");}
+  }),e=>{
+    assert.ok(e instanceof RecoveryRequiredError);
+    assert.equal(e.acknowledgedCheckpoint.steps.external.status,"running");
+    return true;
+  });
+  assert.equal(calls,1);
+});
+test("durable failed intent write never invokes external handler after restart",async()=>{
+  let persisted=null,calls=0;
+  const workflow=w([{id:"external",run:()=>{calls++;return "charged";}}]);
+  await assert.rejects(executeWorkflow(workflow,{
+    checkpointMode:"durable",onCheckpoint:async()=>{throw Error("store offline");}
+  }),e=>{
+    assert.ok(e instanceof CheckpointPersistenceError);
+    assert.equal(e.acknowledgedCheckpoint,null);
+    return true;
+  });
+  assert.equal(persisted,null);
+  assert.equal(calls,0);
+  const restarted=await executeWorkflow(workflow,{
+    checkpointMode:"durable",onCheckpoint:async cp=>{persisted=JSON.stringify(cp);}
+  });
+  assert.equal(restarted.status,"succeeded");
+  assert.equal(calls,1);
+  assert.equal(JSON.parse(persisted).steps.external.status,"succeeded");
+});
+test("durable restart after persisted handler failure remains terminal",async()=>{
+  let persisted=null,calls=0;
+  const workflow=w([{id:"external",run:()=>{calls++;throw Error("refused");}}]);
+  const result=await executeWorkflow(workflow,{
+    checkpointMode:"durable",onCheckpoint:async cp=>{persisted=JSON.stringify(cp);}
+  });
+  assert.equal(result.status,"failed");
+  assert.equal(JSON.parse(persisted).steps.external.failureReason,"handler");
+  const resumed=await executeWorkflow(workflow,{
+    checkpointMode:"durable",checkpoint:JSON.parse(persisted),
+    onCheckpoint:async()=>{throw Error("should not write");}
+  });
+  assert.equal(resumed.status,"failed");
+  assert.equal(calls,1);
+});
