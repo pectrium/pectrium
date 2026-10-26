@@ -1,0 +1,33 @@
+name: Flow engine tests
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/core/**'
+      - 'packages/flow/**'
+      - '.github/workflows/flow-engine.yml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  flow-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.16.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: pnpm-workspace.yaml
+      # Flow/Core depend only on local workspace packages. Avoid resolving the unrelated web app.
+      - name: Install isolated Flow workspace dependencies
+        run: pnpm install --filter @pectrium/flow... --lockfile=false --ignore-scripts
+      - name: Run all core tests
+        run: pnpm --filter @pectrium/core test
+      - name: Run all Flow tests
+        run: pnpm --filter @pectrium/flow test
