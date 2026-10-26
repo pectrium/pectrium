@@ -1,3 +1,5 @@
+> **HISTORICAL VISUAL STUDY — SUPERSEDED IMPLEMENTATION DETAIL.** The temporary CSS composition and draft-only release instructions below describe an earlier experiment, not the current website. Current source uses `human-systems-in-motion.svg`; inspect the actual component and asset before making design or release claims. This record remains for design provenance, not as active implementation or release authority. Current identity authority: [Pectrium Master Brand Directive](00_PECTRIUM_MASTER_BRAND_DIRECTIVE.md).
+
 # Pectrium editorial mobile reference study — Mercuryo
 
 Reference supplied by user: mobile screenshot of mercury(o).io. This is a visual-composition study, not a partnership or copied asset.
