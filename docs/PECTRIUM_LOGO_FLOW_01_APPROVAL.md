@@ -1,3 +1,5 @@
+> **HISTORICAL MILESTONE RECORD — NOT CURRENT PR OR RELEASE STATUS.** References below to PR #5, earlier branches, pending merges, or earlier migration stages describe the state when this record was written. Do not treat them as current instructions or evidence of today's deployment. Current identity authority: [Pectrium Master Brand Directive](00_PECTRIUM_MASTER_BRAND_DIRECTIVE.md). Current Flow 002 merge: [PR #8](https://github.com/pectrium/pectrium/pull/8).
+
 # Pectrium Flow Mark 01 — Final approval candidate
 
 **Status:** PROPOSAL ONLY. User selected Concept 01 for refinement, not final publication. Assets live under `apps/web/public/brand/proposals/` on draft PR #5. Do **not** wire into header, root favicon, Open Graph, production, social profiles or legal documents until explicit final approval.
