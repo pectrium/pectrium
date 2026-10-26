@@ -1,3 +1,5 @@
+> **SUPERSEDED — HISTORICAL REFERENCE ONLY (PECTRIUM-DOCS-001).** This document records an earlier Jeclazon-era decision. It is not current Pectrium brand, design, website, or engineering authority. Statements below are preserved as historical evidence, not present-tense instructions. Current authority: [Pectrium Master Brand Directive](00_PECTRIUM_MASTER_BRAND_DIRECTIVE.md). Do not use this document to publish or implement Jeclazon identity.
+
 # Jeclazon Corporate Web & Design System Authority
 
 **Status:** Architecture  
