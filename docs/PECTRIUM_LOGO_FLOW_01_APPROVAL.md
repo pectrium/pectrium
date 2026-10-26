@@ -2,7 +2,7 @@
 
 # Pectrium Flow Mark 01 — Final approval candidate
 
-**Status:** PROPOSAL ONLY. User selected Concept 01 for refinement, not final publication. Assets live under `apps/web/public/brand/proposals/` on draft PR #5. Do **not** wire into header, root favicon, Open Graph, production, social profiles or legal documents until explicit final approval.
+**Historical proposal status:** PROPOSAL ONLY at the time of this record; this is not proof of current production logo selection or current asset usage. Verify the actual deployed header, favicon, and approved brand assets separately. User selected Concept 01 for refinement, not final publication. Assets live under `apps/web/public/brand/proposals/` on draft PR #5. Do **not** wire into header, root favicon, Open Graph, production, social profiles or legal documents until explicit final approval.
 
 ## Symbol geometry
 Coordinate system: 64 × 64. Two continuous leaf-like geometric forms meeting at (30,32); top-right form is a controlled upward sweep, lower-left form a mirrored downward sweep. Two filled paths, no strokes, no shadows, no gradients, no effects, no enclosing badge in primary usage.
@@ -41,4 +41,4 @@ No accent colors in identity. Social icons may use solid black background; the i
 - [ ] User approves the symbol geometry and final lockup.
 - [ ] Only after approval, integrate header/footer/favicon/OG/social; verify responsive and accessibility; run CI; explicitly authorize public production promotion.
 
-No PR merge, production deployment or domain promotion authorized.
+This historical proposal does not authorize any new production deployment, domain promotion, or logo change; PR #5-era restrictions above must not be mistaken for the current PR status.
