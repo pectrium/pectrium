@@ -38,6 +38,10 @@ Quincestone, Emperor Armani, and Clesla retain distinct identities and governanc
 
 The corporate website is a company presence, not a customer dashboard, checkout, billing system, or authentication portal. Publish only evidence-supported capabilities and development stages.
 
+## Legacy infrastructure verification (separate scope)
+
+Historical Vercel project names, preview URLs, domain aliases, and any legacy domain association must be checked against the **current Vercel project configuration and DNS** before drawing conclusions about ownership, active routing, or release status. This documentation PR neither verifies nor changes Vercel domains, aliases, environment variables, or deployment settings. Record findings in a separately authorized infrastructure audit; do not infer that a legacy domain is removed merely because company wording changed.
+
 ## Engineering governance
 
 - Protect `main`; use scoped feature branches, tests, independent review, and engineering assurance.
