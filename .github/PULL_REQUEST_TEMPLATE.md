@@ -11,13 +11,23 @@ Describe the verified problem and the intended outcome.
 
 ## Verification
 
-- [ ] Exact branch head SHA recorded
+- [ ] Exact branch head SHA recorded (full 40-character commit SHA)
 - [ ] Relevant unit tests executed
 - [ ] Lint, typecheck, and build results recorded where applicable
 - [ ] CI results linked and pending checks distinguished from passing checks
 - [ ] Documentation and relative links reviewed when changed
 - [ ] Security, secrets, accessibility, and content truthfulness considered
 - [ ] No unintended production, Vercel, domain, legal, or package identity changes
+
+## Evidence register
+
+- Reviewed commit SHA (full):
+- Test commands and results (pass/fail/not run):
+- GitHub Actions run URLs and conclusions:
+- Independent review verdict, reviewer, exact SHA, and evidence URL:
+- Engineering assurance verdict, exact SHA, and evidence URL:
+- Founder merge authorization reference (explicit approval, link or decision record):
+- Separate deployment authorization reference (if applicable):
 
 ## Review and release gates
 
