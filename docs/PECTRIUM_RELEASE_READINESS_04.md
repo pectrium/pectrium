@@ -1,3 +1,5 @@
+> **HISTORICAL MILESTONE RECORD — NOT CURRENT RELEASE STATUS.** Branches, Vercel names, PR numbers, and pending validations below reflect the time this record was written. Confirm current status independently. Current authority: [Pectrium Master Brand Directive](00_PECTRIUM_MASTER_BRAND_DIRECTIVE.md); Flow 002 merged through [PR #8](https://github.com/pectrium/pectrium/pull/8).
+
 # Pectrium — Release Readiness 04
 
 ## Deployment identity
