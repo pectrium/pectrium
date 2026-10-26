@@ -17,6 +17,8 @@
 
 This is positioning, not evidence of operational scale or international market presence.
 
+The separate homepage positioning **Technology built around real needs.** is not a replacement for the above strategic brand statement. Use the approved wording for its intended surface; do not combine or silently interchange them.
+
 ## 3. Company purpose
 Pectrium is intended to architect and engineer intelligent systems, software platforms, and digital infrastructure. Capabilities must be described according to their actual development status.
 
@@ -24,7 +26,7 @@ Pectrium is intended to architect and engineer intelligent systems, software pla
 Quincestone, Emperor Armani, and Clesla retain their existing identities, repositories, domains, and governance. No legal ownership, parent-subsidiary relationship, operational status, or public affiliation may be inferred without evidence and approval. Do not introduce additional projects into public portfolio claims until their builds begin and their relationships are verified.
 
 ## 5. Engineering authority
-The canonical engineering repository is `pectrium/pectrium`. Pectrium is the public-facing company identity; EJEP Systems references are limited to verified legal/corporate requirements. The prior `ejepsystems/ejepsystems` path is historical provenance, not the active engineering repository. Do not rename repository identifiers, npm package scopes, environment variables, domains, or deployments without a separately reviewed dependency and rollback plan. Plan changes with dependency impact and rollback.
+The canonical engineering repository is `pectrium/pectrium`. Pectrium is the public-facing company identity; EJEP Systems references are limited to verified legal/corporate requirements. The prior `ejepsystems/ejepsystems` path is historical provenance, not the active engineering repository. Do not rename repository identifiers, npm package scopes, environment variables, domains, or deployments without a separately reviewed dependency and rollback plan. Document dependency impact, current legacy technical identifiers and rollback before any authorized migration.
 
 Target reusable capabilities may include web, app, admin, optional API, shared UI, configuration, security, infrastructure, deployment and project templates. A target architecture is not proof of implementation.
 
