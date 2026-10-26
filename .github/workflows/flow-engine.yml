@@ -7,6 +7,7 @@ on:
       - 'packages/flow/**'
       - '.github/workflows/flow-engine.yml'
       - 'pnpm-workspace.yaml'
+      - 'pnpm-lock.yaml'
       - 'package.json'
   workflow_dispatch:
 permissions:
