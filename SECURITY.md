@@ -17,4 +17,4 @@ This repository includes a corporate website, Flow execution engine, and local-o
 - Maintainers should privately triage, reproduce, prioritize, and coordinate disclosure after a report is received.
 - Support and disclosure procedures remain subject to founder approval.
 
-**Founder confirmation needed:** the preferred private vulnerability-reporting channel, designated maintainer responsibility, and any future published response policy.
+**Responsible decision owner:** Evans Jep (founder approval authority) must confirm the private reporting channel and assign an operational triage maintainer before this can be described as an active reporting service. **Operational triage owner:** unassigned / founder confirmation pending. No response SLA or guaranteed support is implied.
