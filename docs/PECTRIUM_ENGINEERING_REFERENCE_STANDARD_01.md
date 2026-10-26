@@ -29,4 +29,4 @@ References are benchmarks, not copied assets, trademarks, or proprietary impleme
 - Browser screenshots and interaction evidence required before final acceptance.
 
 ## Release constraints
-Draft PR #5 remains the review vehicle. Preserve EJEP Systems as legal entity and existing project brand identities. Current pre-release metadata uses noindex, to be reviewed before authorized public launch.
+Historical PR #5 references are not current release authority. Verify the present branch, checks, preview access, and deployment state for each proposed change. Legal attribution requires verified records; preserve independent project brand identities. Review indexing metadata before any separately authorized public launch.
