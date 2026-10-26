@@ -13,7 +13,7 @@ Pectrium is an independent technology company. This repository contains its corp
 
 - Node.js 22 for the web and Flow validation baseline. The existing starter validation workflow uses Node.js 24; do not assume identical results across versions.
 - pnpm 10.16.1, declared in the root package manifest.
-- The repository does **not yet have a committed pnpm lockfile**. Installs may resolve different transitive dependencies. This is a tracked foundation gap, not a reproducibility guarantee.
+- **Baseline at FOUNDATION-001 review:** no committed root `pnpm-lock.yaml`. Until an actual pnpm-generated root lockfile is committed and verified, installs may resolve different transitive dependencies. Once that gate passes, use `corepack pnpm install --frozen-lockfile` for the root workspace. Generated starter projects are separate and have no bundled lockfile; their initial install is intentionally non-frozen.
 
 ## Commands
 
@@ -21,7 +21,7 @@ From the repository root:
 
 ```sh
 corepack enable
-corepack pnpm install --no-frozen-lockfile
+corepack pnpm install --no-frozen-lockfile  # temporary root fallback until lockfile verified
 corepack pnpm lint
 corepack pnpm typecheck
 corepack pnpm build
