@@ -19,11 +19,17 @@ The current root package manager is pnpm 10.16.1, with `apps/*` and `packages/*`
 5. Research tracks PECTRIUM-RES-001 and PECTRIUM-RES-002 do not authorize product implementation.
 6. Evaluate a separate repository for each future approved product when its requirements are known.
 
+## Root workspace versus generated starter
+
+The repository root lockfile covers the pnpm workspace importers in `apps/*` and `packages/*`; it is **not** a lockfile for generated projects. `templates/corporate/` produces an independent project under `generated/<slug>`, and the template does not ship a lockfile. The generated starter must continue using a non-frozen initial install until its own genuine lockfile is created. Never apply root `--frozen-lockfile` policy blindly to `generated/<slug>`.
+
+The Flow CI job currently installs an isolated filtered workspace with `--lockfile=false`. After a real root lockfile exists, explicitly test whether `pnpm install --filter @pectrium/flow... --frozen-lockfile --ignore-scripts` preserves its intended isolation and required dependencies before changing that job. Add `pnpm-lock.yaml` to Flow CI path filters so future dependency changes exercise Flow tests.
+
 ## Lockfile completion plan (pending verified registry access)
 
 - On a trusted environment with pnpm 10.16.1 and registry access, run `corepack pnpm install --lockfile-only --no-frozen-lockfile` at the repository root.
 - Commit the **actual generated** `pnpm-lock.yaml` on this branch after reviewing its workspace importers and resolved dependency changes.
-- Replace non-frozen install commands in relevant workflows with `--frozen-lockfile`, preserving Flow's isolated install requirements or replacing them with a tested frozen equivalent.
+- Replace non-frozen **root workspace** install commands in relevant workflows with `--frozen-lockfile` after clean-checkout verification; do not change the generated starter's initial non-frozen install. Preserve Flow's isolated install requirements or replace them with a tested frozen equivalent.
 - Verify `pnpm install --frozen-lockfile`, web lint/typecheck/build, Core and Flow tests, and corporate starter generator and generated-project checks.
 - Submit the exact lockfile SHA and CI evidence to independent engineering review. Do not claim completion before these gates pass.
 
