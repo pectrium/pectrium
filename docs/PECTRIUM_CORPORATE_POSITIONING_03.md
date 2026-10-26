@@ -1,3 +1,5 @@
+> **HISTORICAL MILESTONE RECORD — NOT CURRENT PR OR RELEASE STATUS.** References below to PR #5, earlier branches, pending merges, or earlier migration stages describe the state when this record was written. Do not treat them as current instructions or evidence of today's deployment. Current identity authority: [Pectrium Master Brand Directive](00_PECTRIUM_MASTER_BRAND_DIRECTIVE.md). Current Flow 002 merge: [PR #8](https://github.com/pectrium/pectrium/pull/8).
+
 # PECTRIUM CORPORATE POSITIONING & EXPERIENCE 03
 
 **Approved:** user authorized Upgrade 03 on draft PR #5 only. **Visual foundation:** Design Family 02 remains authoritative (precision monochrome, Geist Sans/Mono, compact readable mobile). **Status:** source implementation; visual acceptance pending.

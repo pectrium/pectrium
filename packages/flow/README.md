@@ -60,10 +60,4 @@ monorepo**. A repository-wide lockfile and frozen installs must be addressed
 in a separately approved workspace-dependency task before claiming that
 property.
 
-The Vercel status `pectrium-cinematic-preview` failed for the reviewed
-commit because the Vercel project still points at the absent `apps/cinematic`
-root directory (`NOW_SANDBOX_WORKER_ROOTDIR_NOT_EXIST`). This is a stale
-deployment configuration, not a Flow test failure. It is **not waived**
-automatically: repository branch protection and required status checks must
-be inspected before any merge decision. Do not recreate `apps/cinematic`
-or change Vercel settings in this PR.
+Historical Milestone 02 review: the obsolete `pectrium-cinematic-preview` Vercel status failed due to an absent `apps/cinematic` root. That Vercel project was subsequently deleted, and PR #8 was merged into `main`. The historical failed status remains commit provenance, not evidence of a Flow test failure. For future PRs, inspect their actual required checks and protection rules; do not recreate `apps/cinematic`.

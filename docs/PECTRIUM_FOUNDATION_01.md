@@ -45,7 +45,7 @@ The generator defaults to `generated/<slug>` and refuses overwrites. It only cre
 - No public deployment of this local utility is authorized. Future hosted Studio requires authentication, access controls, request protection and isolation.
 
 ## Acceptance status
-- Corporate generator implementation: present in draft PR #5, pending CI and generated-project verification.
+- Corporate generator source is documented in this repository; current acceptance requires fresh CI and generated-project verification, not historical PR #5 status.
 - Corporate template: functional source, not yet certified through a generated-project build or real-browser acceptance.
 - Advanced design templates, service/module picker, admin, API, app, auth, payments: not implemented. The initial local-only project generator UI is implemented but not yet certified.
-- PR #5: DRAFT / HOLD MERGE. No production promotion or domain rename.
+- Historical PR #5 was an earlier review vehicle; this statement is not a current PR status. No production promotion or domain rename is authorized by this document.
