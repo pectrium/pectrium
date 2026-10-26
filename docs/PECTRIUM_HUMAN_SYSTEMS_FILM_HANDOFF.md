@@ -1,3 +1,5 @@
+> **HISTORICAL MEDIA HANDOFF — NOT CURRENT RELEASE AUTHORITY.** This document records an earlier PR #5-era video proposal, asset delivery assumptions, feature flag and preview-only acceptance instructions. PR #5 has since merged; the instruction below to keep it draft is obsolete. Do not infer that the video assets are currently installed or that a preview/production configuration remains unchanged. Verify the current `apps/web` source and deployment separately before any new media work. Current identity authority: [Pectrium Master Brand Directive](00_PECTRIUM_MASTER_BRAND_DIRECTIVE.md).
+
 # Pectrium Human Systems in Motion — approved media integration
 
 ## Approved 24-second edit
