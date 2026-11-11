@@ -779,3 +779,12 @@ a:focus-visible,button:focus-visible { outline:2px solid #8cb8ff;outline-offset:
 @media(max-width:850px) { .pct-product-concept-stage { grid-template-columns:1fr; }.pct-product-concept-copy { padding:30px; }.pct-concept-disclaimer { padding-top:14px; }.pct-concept-window { margin:0 20px 24px; } }
 @media(max-width:520px) { .pct-product-concept-tabs button { padding:10px 13px; }.pct-concept-dashboard { grid-template-columns:65px 1fr; }.pct-concept-side { padding:23px 7px;font-size:8px; }.pct-concept-toolbar { padding:12px 9px; }.pct-concept-toolbar strong { margin-left:4px;font-size:8px; }.pct-concept-toolbar>span:last-child { font-size:7px; }.pct-concept-rows>div { grid-template-columns:22px 1fr; }.pct-concept-rows small { grid-column:2; } }
 @media(prefers-reduced-motion:reduce) { .pct-product-concept-tabs button { transition:none; } }
+
+
+/* Preserve native hidden semantics for expandable mobile navigation. */
+.pectrium-menu-children[hidden] { display: none !important; }
+@media(max-width:900px) {
+ .site-header .desktop-nav,
+ .site-header .header-link { display:none; }
+ .site-header .mobile-menu-toggle { display:flex; }
+}
