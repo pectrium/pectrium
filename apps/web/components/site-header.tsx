@@ -20,7 +20,7 @@ const sections = [
  ]},
  {href:"/company",label:"Company",description:"The thinking behind Pectrium."},
  {href:"/technology",label:"Technology",description:"The disciplines behind our products."},
- {href:"/ventures",label:"Initiatives",description:"Quincestone, Emperor Armani and Clesla."},
+ {href:"/ventures",label:"Initiatives",description:"Quincestone and Ramptium."},
  {href:"/insights",label:"Insights",description:"Perspectives on technology and design."},
  {href:"/contact",label:"Contact",description:"Connect with Pectrium."}
 ];
