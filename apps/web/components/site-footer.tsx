@@ -16,7 +16,7 @@ export function SiteFooter(){return <footer className="site-footer pectrium-foot
  <div className="shell pectrium-footer-main">
   <div className="pectrium-footer-brand">
    <Link className="wordmark" href="/" aria-label="Pectrium home"><FlowMark className="brand-symbol"/>pectrium<span aria-hidden="true">.</span></Link>
-   <p>Software, intelligence and infrastructure shaped around useful experiences.</p>
+   <p>Software, intelligence and infrastructure shaped around useful experiences.</p><div className="pct-footer-contact"><a href="mailto:pectriumgroup@gmail.com">pectriumgroup@gmail.com</a><a href="https://x.com/pectrium" target="_blank" rel="noopener noreferrer">Pectrium on X ↗</a></div>
   </div>
   <div className="pectrium-footer-columns">
    {columns.map(column=><nav key={column.title} aria-label={`${column.title} footer links`} className="pectrium-footer-column"><h3>{column.title}</h3>{column.links.map(([label,href])=><Link key={href} href={href}>{label}</Link>)}</nav>)}
