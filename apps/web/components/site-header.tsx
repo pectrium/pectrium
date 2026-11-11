@@ -10,7 +10,8 @@ const sections = [
   {href:"/products/assist",label:"Assist",detail:"Intelligent assistance"},
   {href:"/products/connect",label:"Connect",detail:"Connected services"},
   {href:"/products/insight",label:"Insight",detail:"Data intelligence"},
-  {href:"/products/studio",label:"Studio",detail:"Internal engineering"}
+  {href:"/products/studio",label:"Studio",detail:"Internal engineering"},
+  {href:"/products/ramptium",label:"Ramptium",detail:"Pectrium product"}
  ]},
  {href:"/solutions",label:"Solutions",description:"Technology designed around real-world needs.",children:[
   {href:"/solutions/work-and-services",label:"Work and services",detail:"Simpler everyday journeys"},
