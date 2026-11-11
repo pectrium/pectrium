@@ -11,7 +11,6 @@ const sections = [
   {href:"/products/connect",label:"Connect",detail:"Connected services"},
   {href:"/products/insight",label:"Insight",detail:"Data intelligence"},
   {href:"/products/studio",label:"Studio",detail:"Internal engineering"},
-  {href:"/products/ramptium",label:"Ramptium",detail:"Pectrium product"}
  ]},
  {href:"/solutions",label:"Solutions",description:"Technology designed around real-world needs.",children:[
   {href:"/solutions/work-and-services",label:"Work and services",detail:"Simpler everyday journeys"},
@@ -20,7 +19,7 @@ const sections = [
  ]},
  {href:"/company",label:"Company",description:"The thinking behind Pectrium."},
  {href:"/technology",label:"Technology",description:"The disciplines behind our products."},
- {href:"/ventures",label:"Initiatives",description:"Quincestone and Ramptium."},
+ {href:"/platforms",label:"Platforms",description:"Quincestone and Ramptium, built by Pectrium."},
  {href:"/insights",label:"Insights",description:"Perspectives on technology and design."},
  {href:"/contact",label:"Contact",description:"Connect with Pectrium."}
 ];
