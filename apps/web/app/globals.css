@@ -658,3 +658,47 @@ a:focus-visible,button:focus-visible { outline:2px solid #8cb8ff;outline-offset:
  .pectrium-cinematic-cta,.pectrium-footer-cta { transition:none; }
  .pectrium-cinematic-cta:hover,.pectrium-footer-cta:hover { transform:none; }
 }
+
+
+/* Phase 06 — coherent six-chapter corporate homepage */
+.pectrium-statement { background:#0b1423;color:#edf4ff;border-top:1px solid #273b58; }
+.pectrium-statement-inner { display:grid;grid-template-columns:minmax(170px,.4fr) 1fr;gap:clamp(24px,7vw,110px);padding-block:clamp(64px,8vw,112px); }
+.pectrium-statement .section-index { color:#8cb8ff; }
+.pectrium-statement-inner>p:last-child { font-size:clamp(24px,3.2vw,45px);font-weight:460;line-height:1.25;letter-spacing:-.035em;max-width:31ch;margin:0;text-wrap:balance; }
+.pectrium-focus-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.pectrium-focus-grid .directory-card { display:flex;flex-direction:column;align-items:stretch;gap:18px;min-height:230px; }
+.pectrium-card-index { display:block;font-size:11px;letter-spacing:.13em;color:#73839b;font-variant-numeric:tabular-nums; }
+.pectrium-focus-grid .directory-title { margin-top:auto; }
+.pectrium-section-link { display:inline-flex;margin-top:34px; }
+.pectrium-home-products { background:#fff;color:#172b46;padding-block:clamp(84px,10vw,152px); }
+.pectrium-section-heading { display:grid;grid-template-columns:minmax(180px,.42fr) 1fr;gap:clamp(24px,7vw,110px);margin-bottom:clamp(40px,6vw,80px); }
+.pectrium-section-heading h2,.pectrium-platform-feature h2 { font-size:clamp(35px,4.5vw,64px);line-height:1.08;letter-spacing:-.05em;font-weight:530;max-width:15ch;margin:0 0 24px;text-wrap:balance; }
+.pectrium-section-heading p:not(.section-index),.pectrium-platform-feature p:not(.section-index) { max-width:57ch;line-height:1.75;color:#617086; }
+.pectrium-product-index { border-top:1px solid #cbd5e2; }
+.pectrium-product-index-row { display:grid;grid-template-columns:46px minmax(110px,.65fr) minmax(130px,.9fr) minmax(220px,1.4fr) 22px;gap:22px;align-items:center;min-height:112px;padding:23px 10px;border-bottom:1px solid #cbd5e2;text-decoration:none;color:inherit;transition:background-color .22s ease,padding-left .22s ease; }
+.pectrium-product-index-row:hover,.pectrium-product-index-row:focus-visible { background:#edf3fb;padding-left:18px; }
+.pectrium-product-index-row strong { font-size:clamp(23px,2.6vw,34px);font-weight:550;letter-spacing:-.045em; }
+.pectrium-product-field { font-size:13px;font-weight:600; }
+.pectrium-product-description { color:#617086;font-size:13px;line-height:1.6; }
+.pectrium-product-arrow { justify-self:end;font-size:19px; }
+.pectrium-platform-feature { background:#e8eef6;color:#172b46;padding-block:clamp(80px,10vw,145px); }
+.pectrium-platform-feature-inner { display:grid;grid-template-columns:minmax(180px,.42fr) 1fr;gap:clamp(24px,7vw,110px); }
+.pectrium-platform-names { display:flex;flex-wrap:wrap;gap:12px;margin:32px 0; }
+.pectrium-platform-names span { padding:12px 18px;border:1px solid #b7c7da;border-radius:5px;font-weight:550; }
+@media(max-width:950px) {
+ .pectrium-focus-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .pectrium-product-index-row { grid-template-columns:34px minmax(100px,.6fr) 1fr 22px;gap:14px; }
+ .pectrium-product-description { grid-column:3;grid-row:2; }
+ .pectrium-product-arrow { grid-column:4;grid-row:1; }
+}
+@media(max-width:650px) {
+ .pectrium-statement-inner,.pectrium-section-heading,.pectrium-platform-feature-inner { grid-template-columns:1fr;gap:24px; }
+ .pectrium-focus-grid { grid-template-columns:1fr; }
+ .pectrium-focus-grid .directory-card { min-height:165px; }
+ .pectrium-product-index-row { grid-template-columns:26px 1fr 24px;gap:10px;padding-block:22px; }
+ .pectrium-product-index-row strong { grid-column:2; }
+ .pectrium-product-field { grid-column:2;grid-row:2; }
+ .pectrium-product-description { grid-column:2;grid-row:3; }
+ .pectrium-product-arrow { grid-column:3;grid-row:1; }
+}
+@media(prefers-reduced-motion:reduce) { .pectrium-product-index-row { transition:none; } }
