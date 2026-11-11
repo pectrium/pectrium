@@ -23,6 +23,7 @@ export function HeroMedia() {
   if (video.current.paused) { void video.current.play().catch(() => setPlaying(false)); }
  }
  return <div className={`pectrium-cinematic-image${motionEnabled?" pectrium-motion-alternative":""}`}>
+  <div className="pectrium-collage-stage" aria-hidden="true"><div className="pectrium-collage-image"/><div className="pectrium-collage-glow"/></div>
   {motionEnabled?<div className="pectrium-motion-atmosphere" aria-hidden="true"><span/><span/><span/></div>:null}
   {videoEnabled?<div className="pectrium-film-frame">
    <video ref={video} className="pectrium-hero-video" autoPlay muted loop playsInline preload="metadata" disablePictureInPicture
