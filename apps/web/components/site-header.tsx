@@ -29,13 +29,20 @@ export function SiteHeader(){
  const [open,setOpen]=useState(false);
  const [expanded,setExpanded]=useState<string|null>(null);
  const toggleRef=useRef<HTMLButtonElement>(null);
+ const menuRef=useRef<HTMLElement>(null);
  useEffect(()=>{
   if(!open)return;
   const onKey=(event:KeyboardEvent)=>{
    if(event.key==="Escape"){setOpen(false);toggleRef.current?.focus();}
   };
+  const onFocus=(event:FocusEvent)=>{
+   if(event.target instanceof Node && !menuRef.current?.contains(event.target) && !toggleRef.current?.contains(event.target)){
+    setOpen(false);
+   }
+  };
   window.addEventListener("keydown",onKey);
-  return ()=>window.removeEventListener("keydown",onKey);
+  document.addEventListener("focusin",onFocus);
+  return ()=>{window.removeEventListener("keydown",onKey);document.removeEventListener("focusin",onFocus);};
  },[open]);
  return <header className="site-header">
   <div className="shell header-inner">
@@ -45,7 +52,7 @@ export function SiteHeader(){
    <Link className="mobile-header-cta" href="/products/flow" onClick={()=>setOpen(false)}>Flow <span aria-hidden="true">↗</span></Link>
    <button ref={toggleRef} className="mobile-menu-toggle" type="button" aria-label={open?"Close navigation":"Open navigation"} aria-expanded={open} aria-controls="mobile-site-nav" onClick={()=>setOpen(v=>!v)}><span className="menu-label">{open?"Close":"Menu"}</span><span className="menu-glyph" aria-hidden="true">{open?"×":"☰"}</span></button>
   </div>
-  <nav id="mobile-site-nav" className={open?"mobile-site-nav pectrium-mobile-drawer is-open":"mobile-site-nav pectrium-mobile-drawer"} aria-label="Mobile navigation" inert={!open}>
+  <nav ref={menuRef} id="mobile-site-nav" className={open?"mobile-site-nav pectrium-mobile-drawer is-open":"mobile-site-nav pectrium-mobile-drawer"} aria-label="Mobile navigation" inert={!open}>
    <div className="pectrium-mobile-drawer-inner">
     <p className="pectrium-menu-kicker">Navigate Pectrium</p>
     {sections.map(section=><div className="pectrium-menu-group" key={section.href}>
