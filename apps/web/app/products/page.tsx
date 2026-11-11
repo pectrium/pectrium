@@ -25,5 +25,6 @@ export default function Products(){return <PageFrame>
    <Link className="text-link pectrium-card-link" href={`/products/${product.name.toLowerCase()}`}>Discover Pectrium {product.name} <span aria-hidden="true">↗</span></Link>
   </article>)}
  </section>
+ <section className="shell editorial-section" aria-labelledby="ramptium-product-heading"><p className="section-index">Additional product / Ramptium</p><div><h2 id="ramptium-product-heading">Ramptium</h2><p>Ramptium is a Pectrium product with a public source repository. Its capabilities, development stage and availability have not yet been verified.</p><Link className="text-link" href="/products/ramptium">Explore Ramptium <span aria-hidden="true">↗</span></Link></div></section>
  <section className="shell product-family-outro"><div><p className="section-index">Built around needs</p><h2>Technology with a clear purpose.</h2></div><div><p>Each product addresses a different part of a connected digital experience. Availability varies: these are product directions and internal tooling, not a claim that every platform can already be used or purchased.</p><Link className="text-link" href="/solutions">Explore solutions <span aria-hidden="true">↗</span></Link></div></section>
  </PageFrame>;}
