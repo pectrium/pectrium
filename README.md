@@ -52,7 +52,7 @@ Use the package manager and Node.js versions defined by the repository configura
 
 ```bash
 pnpm install
-pnpm --filter web dev
+pnpm dev
 ```
 
 Check `package.json` for the current scripts and package names before running workspace-specific commands.
