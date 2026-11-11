@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageFrame, PageHero } from "@/components/page-frame";
+import { ProductConceptShowcase } from "@/components/product-concept-showcase";
 
 export const metadata: Metadata = {
  title: "Products",
@@ -16,6 +17,7 @@ const products = [
 ];
 export default function Products(){return <PageFrame>
  <PageHero eyebrow="Products" title="A disciplined approach to digital products." description="Five product directions in concept or internal development. These are not presented as commercially available services."/>
+ <section className="shell pct-depth-section" aria-labelledby="pct-product-study-title"><div className="pct-depth-heading"><p className="section-index">Interface studies</p><h2 id="pct-product-study-title">Understand the experience behind each direction.</h2><p>Choose a product direction to inspect an original illustrative workflow. These studies explain design intent—not released features, customer usage or operational software.</p></div><ProductConceptShowcase/></section>
  <section className="shell product-family" aria-label="Pectrium product family">
   {products.map((product)=><article className="product-family-card" id={product.name.toLowerCase()} key={product.name}>
    <div className="product-family-meta"><span className="section-index">{product.category}</span><span className="product-status">{product.status}</span></div>
