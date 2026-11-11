@@ -859,14 +859,14 @@ a:focus-visible,button:focus-visible { outline:2px solid #8cb8ff;outline-offset:
 
 
 /* Pectrium release refinement: consistent editorial rhythm and typography */
-:root { --pct-heading-xl:clamp(42px,5.4vw,76px);--pct-heading-lg:clamp(31px,3.55vw,50px);--pct-heading-md:clamp(23px,2.2vw,30px);--pct-copy:clamp(15px,1.2vw,17px); }
+:root { --editorial-heading-xl:clamp(42px,5.4vw,76px);--editorial-heading-lg:clamp(31px,3.55vw,50px);--editorial-heading-md:clamp(23px,2.2vw,30px);--editorial-copy:clamp(15px,1.2vw,17px); }
 body { font-feature-settings:"ss01" on; }
-.inner-hero h1,.home-hero h1 { font-size:var(--pct-heading-xl);line-height:1.075;letter-spacing:-.052em;font-weight:520;max-width:19ch;text-wrap:balance; }
+.inner-hero h1,.home-hero h1 { font-size:var(--editorial-heading-xl);line-height:1.075;letter-spacing:-.052em;font-weight:520;max-width:19ch;text-wrap:balance; }
 .inner-hero { padding-block:clamp(78px,9vw,124px) clamp(62px,7vw,96px); }
-.inner-deck { font-size:var(--pct-copy);line-height:1.72;max-width:66ch; }
+.inner-deck { font-size:var(--editorial-copy);line-height:1.72;max-width:66ch; }
 .pectrium-cinematic-content h1 { letter-spacing:-.055em;line-height:1.075;font-weight:530;text-wrap:balance; }
-.pct-depth-heading h2,.pectrium-detail-band h2,.editorial-section h2,.pectrium-section-heading h2,.pct-technology-intro h2,.directory-intro h2,.home-bottom h2,.pectrium-platform-feature h2 { font-size:var(--pct-heading-lg);line-height:1.14;letter-spacing:-.045em;font-weight:530;max-width:20ch;text-wrap:balance; }
-.pct-depth-rows h3,.pectrium-detail-cards h3,.pct-contact-guidance h3 { font-size:var(--pct-heading-md);line-height:1.2;font-weight:540;letter-spacing:-.035em; }
+.pct-depth-heading h2,.pectrium-detail-band h2,.editorial-section h2,.pectrium-section-heading h2,.pct-technology-intro h2,.directory-intro h2,.home-bottom h2,.pectrium-platform-feature h2 { font-size:var(--editorial-heading-lg);line-height:1.14;letter-spacing:-.045em;font-weight:530;max-width:20ch;text-wrap:balance; }
+.pct-depth-rows h3,.pectrium-detail-cards h3,.pct-contact-guidance h3 { font-size:var(--editorial-heading-md);line-height:1.2;font-weight:540;letter-spacing:-.035em; }
 .eyebrow,.section-index,.pct-contact-kicker { font-family:var(--font-sans),Arial,sans-serif;font-weight:600;letter-spacing:.065em;text-transform:uppercase;font-size:11px;line-height:1.5; }
 .section-index { margin:0; }
 .pct-depth-number,.pectrium-card-index,.directory-num,.mobile-nav-number { display:none!important; }
@@ -898,8 +898,8 @@ body { font-feature-settings:"ss01" on; }
 /* Contact — intentional interaction, no backend or fake form submission */
 .pct-contact-interaction { display:grid;grid-template-columns:minmax(0,1.2fr) minmax(250px,.75fr);gap:clamp(36px,7vw,110px);padding:clamp(56px,7vw,98px) 0;border-bottom:1px solid var(--line); }
 .pct-contact-kicker { display:block;color:#647c98;margin-bottom:20px; }
-.pct-contact-interaction h2 { margin:0 0 24px;max-width:13ch;font-size:var(--pct-heading-lg);font-weight:540;letter-spacing:-.05em;line-height:1.12;text-wrap:balance; }
-.pct-contact-interaction-copy>p { font-size:var(--pct-copy);color:var(--text-muted);max-width:52ch;line-height:1.75;margin:0 0 30px; }
+.pct-contact-interaction h2 { margin:0 0 24px;max-width:13ch;font-size:var(--editorial-heading-lg);font-weight:540;letter-spacing:-.05em;line-height:1.12;text-wrap:balance; }
+.pct-contact-interaction-copy>p { font-size:var(--editorial-copy);color:var(--text-muted);max-width:52ch;line-height:1.75;margin:0 0 30px; }
 .pct-contact-button { appearance:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:space-between;gap:40px;min-height:52px;padding:14px 20px;border:1px solid #0b1423;border-radius:4px;background:#0b1423;color:#fff;font:600 13px var(--font-sans),Arial,sans-serif;transition:background .2s ease,transform .2s ease; }
 .pct-contact-button:hover { background:#213957;transform:translateY(-1px); }
 .pct-contact-button:focus-visible,.pct-dialog-close:focus-visible,.pct-contact-secondary:focus-visible,.pct-enquiry-topics input:focus-visible+span { outline:2px solid #4079bf;outline-offset:3px; }
