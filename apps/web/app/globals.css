@@ -1174,3 +1174,42 @@ body { font-feature-settings:"ss01" on; }
  .pct-gallery-tabs button,.pct-architecture-layer { transition:none; }
  .pct-architecture-layer.is-active { transform:none; }
 }
+
+
+/* Hero image clarity correction: use the real WebP asset rather than the later SVG override.
+   No full-frame dimming, enlarged crop, glow or animated resampling. */
+.pectrium-collage-image {
+ inset:0;
+ background-image:url("/media/pectrium/hero/pectrium-cinematic-collage.webp");
+ background-position:center;
+ background-size:cover;
+ transform:none;
+ animation:none;
+ will-change:auto;
+}
+.pectrium-collage-glow { display:none; }
+.pectrium-cinematic-image:has(.pectrium-collage-stage) + .pectrium-cinematic-shade { display:none; }
+@media(max-width:767px) {
+ .pectrium-collage-image {
+  inset:0;
+  background-image:url("/media/pectrium/hero/pectrium-cinematic-collage.webp");
+  background-size:contain;
+  background-position:center top;
+  background-color:#0b1423;
+  transform:none;
+  animation:none;
+ }
+ .pectrium-cinematic-hero { background:#0b1423; }
+ .pectrium-cinematic-image:has(.pectrium-collage-stage) {
+  position:relative;
+  z-index:0;
+  width:100%;
+  height:auto;
+  aspect-ratio:16 / 9;
+  flex:none;
+  background:none;
+ }
+ .pectrium-cinematic-hero:has(.pectrium-collage-stage) { display:flex;flex-direction:column;min-height:0; }
+ .pectrium-cinematic-hero:has(.pectrium-collage-stage) .pectrium-cinematic-inner { padding-block:clamp(34px,7vw,64px) 68px; }
+ .pectrium-cinematic-hero:has(.pectrium-collage-stage) .pectrium-cinematic-content { max-width:100%; }
+}
