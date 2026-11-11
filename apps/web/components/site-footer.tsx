@@ -4,7 +4,7 @@ import { FlowMark } from "./flow-mark";
 const columns=[
  {title:"Products",links:[["Flow","/products/flow"],["Assist","/products/assist"],["Connect","/products/connect"],["Insight","/products/insight"],["Studio","/products/studio"],["All products","/products"]]},
  {title:"Solutions",links:[["Work and services","/solutions/work-and-services"],["Learning and intelligence","/solutions/learning-and-intelligence"],["Connected communities","/solutions/connected-communities"],["All solutions","/solutions"]]},
- {title:"Explore",links:[["Technology","/technology"],["Initiatives","/ventures"],["Insights","/insights"]]},
+ {title:"Explore",links:[["Technology","/technology"],["Platforms","/platforms"],["Insights","/insights"]]},
  {title:"Company",links:[["About Pectrium","/company"],["Contact","/contact"]]}
 ] as const;
 
@@ -22,5 +22,5 @@ export function SiteFooter(){return <footer className="site-footer pectrium-foot
    {columns.map(column=><nav key={column.title} aria-label={`${column.title} footer links`} className="pectrium-footer-column"><h3>{column.title}</h3>{column.links.map(([label,href])=><Link key={href} href={href}>{label}</Link>)}</nav>)}
   </div>
  </div>
- <div className="shell pectrium-footer-bottom"><span>© {new Date().getFullYear()} Pectrium</span><span>Intelligent digital systems</span><a href="#main">Back to top ↑</a></div>
+ <div className="shell pectrium-footer-bottom"><span>© {new Date().getFullYear()} Pectrium</span><span>Technology built around real needs.</span><a href="#main">Back to top ↑</a></div>
  </footer>;}

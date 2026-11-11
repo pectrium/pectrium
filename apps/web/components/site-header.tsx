@@ -10,7 +10,7 @@ const sections = [
   {href:"/products/assist",label:"Assist",detail:"Intelligent assistance"},
   {href:"/products/connect",label:"Connect",detail:"Connected services"},
   {href:"/products/insight",label:"Insight",detail:"Data intelligence"},
-  {href:"/products/studio",label:"Studio",detail:"Internal engineering"}
+  {href:"/products/studio",label:"Studio",detail:"Internal engineering"},
  ]},
  {href:"/solutions",label:"Solutions",description:"Technology designed around real-world needs.",children:[
   {href:"/solutions/work-and-services",label:"Work and services",detail:"Simpler everyday journeys"},
@@ -19,7 +19,7 @@ const sections = [
  ]},
  {href:"/company",label:"Company",description:"The thinking behind Pectrium."},
  {href:"/technology",label:"Technology",description:"The disciplines behind our products."},
- {href:"/ventures",label:"Initiatives",description:"Quincestone, Emperor Armani and Clesla."},
+ {href:"/platforms",label:"Platforms",description:"Quincestone and Ramptium, built by Pectrium."},
  {href:"/insights",label:"Insights",description:"Perspectives on technology and design."},
  {href:"/contact",label:"Contact",description:"Connect with Pectrium."}
 ];
@@ -29,23 +29,30 @@ export function SiteHeader(){
  const [open,setOpen]=useState(false);
  const [expanded,setExpanded]=useState<string|null>(null);
  const toggleRef=useRef<HTMLButtonElement>(null);
+ const menuRef=useRef<HTMLElement>(null);
  useEffect(()=>{
   if(!open)return;
   const onKey=(event:KeyboardEvent)=>{
    if(event.key==="Escape"){setOpen(false);toggleRef.current?.focus();}
   };
+  const onFocus=(event:FocusEvent)=>{
+   if(event.target instanceof Node && !menuRef.current?.contains(event.target) && !toggleRef.current?.contains(event.target)){
+    setOpen(false);
+   }
+  };
   window.addEventListener("keydown",onKey);
-  return ()=>window.removeEventListener("keydown",onKey);
+  document.addEventListener("focusin",onFocus);
+  return ()=>{window.removeEventListener("keydown",onKey);document.removeEventListener("focusin",onFocus);};
  },[open]);
  return <header className="site-header">
   <div className="shell header-inner">
    <Link className="wordmark" href="/" aria-label="Pectrium home" onClick={()=>setOpen(false)}><FlowMark className="brand-symbol"/>pectrium<span aria-hidden="true">.</span></Link>
-   <nav className="desktop-nav" aria-label="Primary navigation"><ul className="nav-list">{sections.map(section=><li key={section.href}><Link href={section.href} aria-current={pathname===section.href?"page":undefined}>{section.label}</Link></li>)}</ul></nav>
+   <nav className="desktop-nav" aria-label="Primary navigation"><ul className="nav-list">{sections.map(section=><li key={section.href}><Link href={section.href} aria-current={pathname===section.href||pathname.startsWith(section.href+"/")?"page":undefined}>{section.label}</Link></li>)}</ul></nav>
    <Link className="header-link" href="/products/flow">Meet Flow <span aria-hidden="true">↗</span></Link>
    <Link className="mobile-header-cta" href="/products/flow" onClick={()=>setOpen(false)}>Flow <span aria-hidden="true">↗</span></Link>
    <button ref={toggleRef} className="mobile-menu-toggle" type="button" aria-label={open?"Close navigation":"Open navigation"} aria-expanded={open} aria-controls="mobile-site-nav" onClick={()=>setOpen(v=>!v)}><span className="menu-label">{open?"Close":"Menu"}</span><span className="menu-glyph" aria-hidden="true">{open?"×":"☰"}</span></button>
   </div>
-  <nav id="mobile-site-nav" className={open?"mobile-site-nav pectrium-mobile-drawer is-open":"mobile-site-nav pectrium-mobile-drawer"} aria-label="Mobile navigation" inert={!open}>
+  <nav ref={menuRef} id="mobile-site-nav" className={open?"mobile-site-nav pectrium-mobile-drawer is-open":"mobile-site-nav pectrium-mobile-drawer"} aria-label="Mobile navigation" inert={!open}>
    <div className="pectrium-mobile-drawer-inner">
     <p className="pectrium-menu-kicker">Navigate Pectrium</p>
     {sections.map(section=><div className="pectrium-menu-group" key={section.href}>

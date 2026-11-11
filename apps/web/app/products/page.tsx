@@ -15,7 +15,7 @@ const products = [
  {name:"Studio",category:"Internal engineering",description:"A shared foundation for designing, building and maintaining Pectrium's own digital experiences.",capabilities:["Reusable starters","Design standards","Engineering workflows"],status:"Internal tooling"}
 ];
 export default function Products(){return <PageFrame>
- <PageHero eyebrow="Pectrium / Products" title="One direction. Connected possibilities." description="Meet the product family taking shape around simpler workflows, useful intelligence and dependable digital experiences."/>
+ <PageHero eyebrow="Pectrium / Products" title="A disciplined approach to digital products." description="Five product directions in concept or internal development. These are not presented as commercially available services."/>
  <section className="shell product-family" aria-label="Pectrium product family">
   {products.map((product)=><article className="product-family-card" id={product.name.toLowerCase()} key={product.name}>
    <div className="product-family-meta"><span className="section-index">{product.category}</span><span className="product-status">{product.status}</span></div>

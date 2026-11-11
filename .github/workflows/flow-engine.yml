@@ -2,12 +2,6 @@ name: Flow engine tests
 on:
   pull_request:
     branches: [main]
-    paths:
-      - 'packages/core/**'
-      - 'packages/flow/**'
-      - '.github/workflows/flow-engine.yml'
-      - 'pnpm-workspace.yaml'
-      - 'package.json'
   workflow_dispatch:
 permissions:
   contents: read
