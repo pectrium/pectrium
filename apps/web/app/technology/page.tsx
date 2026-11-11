@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import Link from "next/link";
-import {PageFrame,PageHero} from "@/components/page-frame";
+import {PageFrame} from "@/components/page-frame";
+import {DirectionHero} from "@/components/direction-hero";
 import { ArchitectureExplorer } from "@/components/architecture-explorer";
 import { EngineeringEvidence } from "@/components/engineering-evidence";
 export const metadata:Metadata={title:"Technology",description:"Pectrium's systems-engineering approach to applications, data, intelligent assistance and resilient digital foundations."};
@@ -11,8 +12,8 @@ const disciplines=[
  ["04","Systems and infrastructure","Resilience is designed into the whole operating system: dependencies, deployment controls, observability, failure recovery and the security of connected services.","Integration boundaries, security by design, monitoring and operational readiness."]
 ];
 export default function Technology(){return <PageFrame>
- <PageHero eyebrow="Technology" title="Technology is a system of decisions." description="Pectrium explores the disciplines needed to turn complex needs into dependable digital experiences. The ambition is not to use every new tool, but to choose the right architecture and validate its consequences."/>
- <section className="shell pct-depth-section pct-architecture-page-section"><div className="pct-depth-heading"><p className="section-index">Architecture explorer</p><h2>Understand the layers behind a useful system.</h2><p>Inspect a conceptual reference architecture: not a diagram of deployed Pectrium infrastructure or a claim of product availability.</p></div><ArchitectureExplorer/></section>
+ <DirectionHero direction="obsidian"/>
+ <section id="architecture-explorer" className="shell pct-depth-section pct-architecture-page-section"><div className="pct-depth-heading"><p className="section-index">Architecture explorer</p><h2>Understand the layers behind a useful system.</h2><p>Inspect a conceptual reference architecture: not a diagram of deployed Pectrium infrastructure or a claim of product availability.</p></div><ArchitectureExplorer/></section>
  <section className="shell pct-depth-section"><div className="pct-depth-heading"><p className="section-index">Core disciplines</p><h2>Depth beyond the interface.</h2><p>Four areas that inform our engineering thinking. Each requires its own constraints, trade-offs and evidence.</p></div><div className="pct-depth-rows">{disciplines.map(([n,title,body,scope])=><article key={n}><h3>{title}</h3><div><p>{body}</p><p className="pct-depth-note">{scope}</p></div></article>)}</div></section>
  <section className="pectrium-detail-band"><div className="shell"><p className="section-index">Engineering judgment</p><h2>Questions before code.</h2><div className="pectrium-detail-cards"><article><h3>What should change?</h3><p>Define who benefits, what currently creates friction and which outcome would justify a technical intervention.</p></article><article><h3>What could go wrong?</h3><p>Consider data sensitivity, accessibility, maintenance, operational cost and the impact of imperfect information.</p></article><article><h3>How will we know?</h3><p>Use tests, review and domain-relevant evidence. Distinguish a promising prototype from a production-ready service.</p></article></div></div></section>
  <EngineeringEvidence/>
