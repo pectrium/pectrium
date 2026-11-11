@@ -567,3 +567,38 @@ body { font-size: var(--pct-type-body); line-height: var(--pct-leading-body); }
  .pectrium-film-controls { bottom:16px; }
 }
 @media(prefers-reduced-motion:reduce) { .pectrium-film-frame video { visibility:hidden; } }
+
+/* Pectrium Phase 03 — hybrid dark hero / light editorial surfaces. Review branch only. */
+.pectrium-cinematic-hero { background:var(--pct-hybrid-navy); color:#fff; }
+.pectrium-cinematic-image { background-color:var(--pct-hybrid-navy); }
+.pectrium-cinematic-shade { background:linear-gradient(90deg,rgba(11,20,35,.96) 0%,rgba(11,20,35,.78) 42%,rgba(11,20,35,.24) 85%),linear-gradient(0deg,rgba(11,20,35,.64),transparent 45%); }
+.pectrium-cinematic-content .eyebrow { color:var(--pct-hybrid-accent); }
+.pectrium-cinematic-deck { color:#d5e2f1; }
+.pectrium-cinematic-cta { background:#e9f1ff; color:var(--pct-hybrid-navy); border-radius:8px; }
+.pectrium-cinematic-cta:hover { background:#cfe1ff; }
+.pectrium-hybrid-directory { background:var(--pct-hybrid-light); color:var(--pct-hybrid-ink); }
+.pectrium-hybrid-directory .section-index { color:var(--pct-hybrid-muted); }
+.pectrium-hybrid-directory .directory-grid { border-color:#c8d5e4; }
+.pectrium-hybrid-directory .directory-card { border-color:#c8d5e4; }
+.pectrium-hybrid-directory .directory-card:hover,.pectrium-hybrid-directory .directory-card:focus-visible { background:#dfeaf7; }
+.pectrium-hybrid-directory .directory-description { color:var(--pct-hybrid-muted); }
+.pectrium-hybrid-approach { color:var(--pct-hybrid-ink); }
+.pectrium-founder-section { background:var(--pct-hybrid-light); color:var(--pct-hybrid-ink); max-width:none; width:100%; padding-inline:max(24px,calc((100% - var(--max))/2)); }
+.pectrium-founder-section .section-index,.pectrium-founder-section p { color:var(--pct-hybrid-muted); }
+.site-header { background:var(--pct-hybrid-navy); color:#f6f9ff; border-color:#263a56; }
+.site-header .wordmark span { color:var(--pct-hybrid-accent); }
+.site-header .nav-list a:focus-visible,.site-header .header-link:focus-visible { outline-color:var(--pct-hybrid-accent); }
+.pectrium-footer { background:var(--pct-hybrid-navy); }
+.pectrium-footer-cta { background:#e9f1ff; color:var(--pct-hybrid-navy); border-radius:8px; }
+.pectrium-footer-cta:hover { background:#cfe1ff; }
+@media(max-width:900px) {
+ .site-header .pectrium-mobile-drawer.is-open { background:var(--pct-hybrid-navy); }
+ .pectrium-founder-section { padding-inline:20px; }
+}
+@media(max-width:767px) {
+ .pectrium-cinematic-shade { display:none; }
+ .pectrium-cinematic-hero { background:var(--pct-hybrid-navy); }
+}
+@media(prefers-reduced-motion:reduce) {
+ .pectrium-hybrid-directory .directory-card { transition:none; }
+}
