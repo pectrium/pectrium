@@ -619,3 +619,17 @@ body { font-size: var(--pct-type-body); line-height: var(--pct-leading-body); }
 @media(prefers-reduced-motion:reduce) {
  .pectrium-collage-image { animation:none;transform:none;will-change:auto; }
 }
+
+
+/* Phase 04 editorial refinement: quieter surfaces, precise focus and restrained motion. */
+:root { --pct-editorial-border:rgba(23,43,70,.15); }
+.pectrium-hybrid-directory .directory-card { transition:background-color .24s ease,border-color .24s ease,transform .24s ease; }
+.pectrium-hybrid-directory .directory-card:hover { transform:translateY(-2px); }
+.pectrium-cinematic-content h1 { text-wrap:balance; }
+.pectrium-cinematic-deck { text-wrap:pretty; }
+.editorial-section h2,.home-bottom h2,.directory-intro h2 { text-wrap:balance; }
+.editorial-section p,.product-family-card p { text-wrap:pretty; }
+a:focus-visible,button:focus-visible { outline:2px solid #8cb8ff;outline-offset:4px; }
+@media(prefers-reduced-motion:reduce) {
+ .pectrium-hybrid-directory .directory-card { transition:none;transform:none!important; }
+}
