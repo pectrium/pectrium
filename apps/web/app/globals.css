@@ -842,3 +842,17 @@ a:focus-visible,button:focus-visible { outline:2px solid #8cb8ff;outline-offset:
  .pct-company-principles article { min-height:0; }
  .pct-solution-feature h3 { font-size:clamp(31px,8vw,43px); }
 }
+
+
+/* Release editorial final polish */
+.pct-product-availability { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:18px;margin-top:30px; }
+.pct-product-availability strong { font-size:12px;font-weight:600;letter-spacing:.015em; }
+.pct-product-availability span { font-size:12px;color:var(--text-muted);line-height:1.6; }
+.pct-insight-essays { border-top:1px solid var(--line); }
+.pct-insight-essays article { padding:clamp(46px,6vw,90px) 0;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(30px,7vw,100px);border-bottom:1px solid var(--line); }
+.pct-insight-essays h2 { font-size:clamp(30px,3.65vw,52px);font-weight:540;letter-spacing:-.052em;line-height:1.11;max-width:15ch;margin:0 0 28px;text-wrap:balance; }
+.pct-insight-essays .pct-insight-lead { font-size:clamp(17px,1.7vw,21px);line-height:1.6;color:var(--text);max-width:52ch;margin:0; }
+.pct-insight-body p { font-size:15px;color:var(--text-muted);line-height:1.85;max-width:64ch;margin:0 0 21px; }
+.pct-insight-body .text-link { margin-top:10px; }
+@media(max-width:780px) { .pct-insight-essays article { grid-template-columns:1fr;gap:22px; }.pct-insight-essays h2 { max-width:20ch;margin-bottom:18px; } }
+@media(max-width:560px) { .pct-insight-essays article { padding:43px 0; }.pct-insight-body p { font-size:14px;line-height:1.8; } }
