@@ -44,7 +44,6 @@ export function ProductConceptShowcase(){
  const [active,setActive]=useState<(typeof concepts)[number]["id"]>("flow");
  const nameId=useId();
  const selected=concepts.find(item=>item.id===active)??concepts[0];
- const index=concepts.findIndex(item=>item.id===active);
  return <div className="pct-gallery">
   <div className="pct-gallery-header"><span>PRODUCT EXPERIENCE STUDIES</span><span>INTERACTIVE CONCEPTS · NOT LIVE SOFTWARE</span></div>
   <div role="tablist" aria-label="Explore Pectrium product directions" className="pct-gallery-tabs">
