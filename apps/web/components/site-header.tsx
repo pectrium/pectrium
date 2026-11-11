@@ -40,7 +40,7 @@ export function SiteHeader(){
  return <header className="site-header">
   <div className="shell header-inner">
    <Link className="wordmark" href="/" aria-label="Pectrium home" onClick={()=>setOpen(false)}><FlowMark className="brand-symbol"/>pectrium<span aria-hidden="true">.</span></Link>
-   <nav className="desktop-nav" aria-label="Primary navigation"><ul className="nav-list">{sections.map(section=><li key={section.href}><Link href={section.href} aria-current={pathname===section.href?"page":undefined}>{section.label}</Link></li>)}</ul></nav>
+   <nav className="desktop-nav" aria-label="Primary navigation"><ul className="nav-list">{sections.map(section=><li key={section.href}><Link href={section.href} aria-current={pathname===section.href||pathname.startsWith(section.href+"/")?"page":undefined}>{section.label}</Link></li>)}</ul></nav>
    <Link className="header-link" href="/products/flow">Meet Flow <span aria-hidden="true">↗</span></Link>
    <Link className="mobile-header-cta" href="/products/flow" onClick={()=>setOpen(false)}>Flow <span aria-hidden="true">↗</span></Link>
    <button ref={toggleRef} className="mobile-menu-toggle" type="button" aria-label={open?"Close navigation":"Open navigation"} aria-expanded={open} aria-controls="mobile-site-nav" onClick={()=>setOpen(v=>!v)}><span className="menu-label">{open?"Close":"Menu"}</span><span className="menu-glyph" aria-hidden="true">{open?"×":"☰"}</span></button>
