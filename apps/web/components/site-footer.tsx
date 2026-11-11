@@ -22,5 +22,5 @@ export function SiteFooter(){return <footer className="site-footer pectrium-foot
    {columns.map(column=><nav key={column.title} aria-label={`${column.title} footer links`} className="pectrium-footer-column"><h3>{column.title}</h3>{column.links.map(([label,href])=><Link key={href} href={href}>{label}</Link>)}</nav>)}
   </div>
  </div>
- <div className="shell pectrium-footer-bottom"><span>© {new Date().getFullYear()} Pectrium</span><span>Intelligent digital systems</span><a href="#main">Back to top ↑</a></div>
+ <div className="shell pectrium-footer-bottom"><span>© {new Date().getFullYear()} Pectrium</span><span>Technology built around real needs.</span><a href="#main">Back to top ↑</a></div>
  </footer>;}
