@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageFrame } from "@/components/page-frame";
 import { HeroMedia } from "@/components/hero-media";
+import { TechnologySystem } from "@/components/technology-system";
 
 const focus = [
  {number:"01",title:"Work and operations",description:"Clearer workflows, service coordination and accountable execution.",href:"/solutions/work-and-services"},
@@ -34,6 +35,7 @@ export default function Home(){return <PageFrame>
   <div className="directory-grid pectrium-focus-grid">{focus.map(item=><Link className="directory-card" href={item.href} key={item.number}><span className="pectrium-card-index">{item.number}</span><span className="directory-title">{item.title}<span aria-hidden="true">↗</span></span><span className="directory-description">{item.description}</span></Link>)}</div>
   <Link className="text-link pectrium-section-link" href="/solutions">Explore all solutions <span aria-hidden="true">↗</span></Link>
  </div></section>
+ <section className="pct-technology-showcase" aria-labelledby="pct-tech-title"><div className="shell"><div className="pct-technology-intro"><p className="section-index">Technology / Systems thinking</p><div><h2 id="pct-tech-title">Intelligence is only as useful as the systems around it.</h2><p>Our technical direction connects software, data, applied intelligence and infrastructure. Explore the disciplines shaping how we approach complex problems.</p></div></div><TechnologySystem/><div className="pct-tech-bottom"><span>Interactive technology overview · Disciplines, not claims of deployed capabilities</span><Link className="text-link" href="/technology">Explore technology <span aria-hidden="true">↗</span></Link></div></div></section>
  <section className="pectrium-home-products"><div className="shell">
   <div className="pectrium-section-heading"><p className="section-index">Product directions / 03</p><div><h2>Focused capabilities. Coherent systems.</h2><p>Five complementary product directions across work, intelligence, connectivity and engineering. Individual capabilities and availability depend on development status.</p></div></div>
   <div className="pectrium-product-index">{products.map((item,index)=><Link href={item.href} className="pectrium-product-index-row" key={item.name}><span className="pectrium-card-index">0{index+1}</span><strong>{item.name}</strong><span className="pectrium-product-field">{item.field}</span><span className="pectrium-product-description">{item.description}</span><span className="pectrium-product-arrow" aria-hidden="true">↗</span></Link>)}</div>
