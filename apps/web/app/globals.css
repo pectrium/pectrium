@@ -702,3 +702,43 @@ a:focus-visible,button:focus-visible { outline:2px solid #8cb8ff;outline-offset:
  .pectrium-product-arrow { grid-column:3;grid-row:1; }
 }
 @media(prefers-reduced-motion:reduce) { .pectrium-product-index-row { transition:none; } }
+
+
+/* Pectrium technology systems — interactive, progressive, accessible */
+.pct-technology-showcase { background:#0b1423;color:#f4f7fd;padding-block:clamp(86px,10vw,155px);overflow:hidden; }
+.pct-technology-intro { display:grid;grid-template-columns:minmax(160px,.42fr) 1fr;gap:clamp(24px,7vw,110px);margin-bottom:50px; }
+.pct-technology-intro .section-index { color:#8cb8ff; }
+.pct-technology-intro h2 { font-size:clamp(36px,4.5vw,67px);line-height:1.08;letter-spacing:-.052em;font-weight:530;max-width:17ch;margin:0 0 22px;text-wrap:balance; }
+.pct-technology-intro p:not(.section-index) { color:#aabbd1;line-height:1.75;max-width:59ch; }
+.pct-system { display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);border:1px solid #33455f;min-height:530px; }
+.pct-system-visual { min-height:510px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 50%,#243f5e 0%,#101e32 34%,#0a1424 72%);isolation:isolate; }
+.pct-system-visual::before { content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(140,184,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(140,184,255,.07) 1px,transparent 1px);background-size:45px 45px;mask-image:radial-gradient(circle,#000,transparent 77%); }
+.pct-system-orbit { position:absolute;border:1px solid rgba(140,184,255,.22);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none; }
+.pct-system-orbit-one { width:55%;aspect-ratio:1; }
+.pct-system-orbit-two { width:83%;aspect-ratio:1; }
+.pct-system-core { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:148px;aspect-ratio:1;border-radius:50%;border:1px solid #8cb8ff;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle,#315477,#122b47);box-shadow:0 0 90px rgba(140,184,255,.14); }
+.pct-system-core span { font-size:13px;font-weight:750;letter-spacing:.12em; }
+.pct-system-core small { color:#a4c8ff;letter-spacing:.17em;font-size:9px;margin-top:8px; }
+.pct-system-node { position:absolute;width:156px;display:flex;flex-direction:column;gap:7px;padding:13px 15px;border:1px solid #476181;background:rgba(12,28,47,.93);border-radius:4px;transition:border-color .25s ease,background-color .25s ease; }
+.pct-system-node span { font-size:10px;color:#8cb8ff; }
+.pct-system-node strong { font-size:12px;font-weight:550; }
+.pct-system-node.is-active { border-color:#b9d4ff;background:#203f60; }
+.pct-system-node-1 { top:12%;left:10%; }.pct-system-node-2 { top:13%;right:6%; }.pct-system-node-3 { bottom:12%;left:9%; }.pct-system-node-4 { bottom:12%;right:6%; }
+.pct-system-details { padding:clamp(25px,3.5vw,48px);background:#111e30;border-left:1px solid #33455f;display:flex;flex-direction:column; }
+.pct-system-kicker { font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:#a5bbd6;margin:0 0 25px; }
+.pct-system-options { border-top:1px solid #34465f; }
+.pct-system-options button { display:grid;grid-template-columns:30px 1fr 20px;align-items:center;gap:10px;text-align:left;width:100%;padding:19px 5px;border:0;border-bottom:1px solid #34465f;background:transparent;color:#dce7f7;font:inherit;font-size:14px;cursor:pointer;transition:background-color .2s ease,color .2s ease; }
+.pct-system-options button span:first-child { color:#91a9c8;font-size:11px; }
+.pct-system-options button span:last-child { justify-self:end; }
+.pct-system-options button:hover,.pct-system-options button.is-active { color:#fff;background:#203853; }
+.pct-system-options button:focus-visible { outline:2px solid #8cb8ff;outline-offset:-2px; }
+.pct-system-description { margin-top:auto;padding-top:35px; }
+.pct-system-description p:first-child { color:#8cb8ff;font-size:12px;letter-spacing:.04em; }
+.pct-system-description h3 { font-size:clamp(24px,2.6vw,36px);font-weight:550;letter-spacing:-.04em;margin:10px 0 13px; }
+.pct-system-description p:last-child { font-size:14px;color:#b7c6d8;line-height:1.7;max-width:45ch; }
+.pct-tech-bottom { display:flex;justify-content:space-between;align-items:center;gap:25px;padding-top:25px; }
+.pct-tech-bottom>span { color:#8fa3bf;font-size:11px; }
+.pct-tech-bottom .text-link { color:#e7f1ff; }
+@media(max-width:900px) { .pct-system { grid-template-columns:1fr; }.pct-system-details { border-left:0;border-top:1px solid #33455f; }.pct-system-visual { min-height:440px; } }
+@media(max-width:650px) { .pct-technology-intro { grid-template-columns:1fr;gap:20px; }.pct-system-visual { min-height:350px; }.pct-system-core { width:105px; }.pct-system-core span { font-size:10px; }.pct-system-node { width:115px;padding:10px; }.pct-system-node strong { font-size:10px; }.pct-system-node-1 { left:3%;top:7%; }.pct-system-node-2 { right:3%;top:7%; }.pct-system-node-3 { left:3%;bottom:7%; }.pct-system-node-4 { right:3%;bottom:7%; }.pct-tech-bottom { align-items:flex-start;flex-direction:column; } }
+@media(prefers-reduced-motion:reduce) { .pct-system-node,.pct-system-options button { transition:none; } }
