@@ -1235,3 +1235,47 @@ body { font-feature-settings:"ss01" on; }
  .pectrium-cinematic-hero:has(.pct-hero-architecture) .pectrium-cinematic-inner { position:relative;z-index:2; }
 }
 @media(prefers-reduced-motion:reduce){ .pct-hero-architecture * { animation:none!important; } }
+
+
+/* Pectrium flagship brand-kit applications: Obsidian / Technology; Infinite Systems / Solutions. */
+.pct-direction-hero { position:relative;isolation:isolate;min-height:clamp(630px,78vh,900px);overflow:hidden;display:flex;align-items:center; }
+.pct-direction-art { position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden; }
+.pct-direction-hero-inner { width:100%;position:relative;padding-block:clamp(100px,13vw,180px) 70px; }
+.pct-direction-eyebrow { font-size:11px;font-weight:650;letter-spacing:.14em;text-transform:uppercase;margin:0 0 28px; }
+.pct-direction-hero h1 { font-size:clamp(48px,7.2vw,104px);line-height:1.03;font-weight:510;letter-spacing:-.068em;max-width:12ch;text-wrap:balance;margin:0 0 28px; }
+.pct-direction-description { max-width:51ch;font-size:clamp(16px,1.5vw,19px);line-height:1.75;margin:0 0 32px; }
+.pct-direction-link { display:inline-flex;align-items:center;gap:32px;font-size:13px;font-weight:650;letter-spacing:.01em;border-bottom:1px solid currentColor;padding-bottom:12px; }
+.pct-direction-link:focus-visible { outline:3px solid #6aa7f0;outline-offset:5px; }
+.pct-direction-signature { display:flex;justify-content:space-between;gap:15px;border-top:1px solid currentColor;margin-top:clamp(65px,9vw,140px);padding-top:17px;opacity:.58;font-size:10px;letter-spacing:.12em;font-weight:650; }
+.pct-direction-obsidian { color:#f0f6ff;background:#03080e; }
+.pct-direction-obsidian .pct-direction-hero-inner { z-index:1; }
+.pct-direction-obsidian .pct-direction-eyebrow { color:#9cbad5; }
+.pct-direction-obsidian .pct-direction-description { color:#b2c2d4; }
+.pct-direction-obsidian .pct-direction-art { background:radial-gradient(ellipse at 76% 50%,#1b334b 0%,#081421 32%,#03080e 68%); }
+.pct-obsidian-object { position:absolute;top:49%;left:76%;width:min(54vw,750px);aspect-ratio:1;transform:translate(-50%,-50%) rotate(-31deg);border-radius:24%;border:1px solid rgba(189,216,239,.26);box-shadow:inset -55px -30px 100px rgba(2,7,12,.95),inset 16px 14px 38px rgba(120,180,224,.16),0 0 150px rgba(48,114,171,.13);background:linear-gradient(133deg,rgba(143,185,220,.13),rgba(7,18,30,.97) 39%,#02070c 78%); }
+.pct-obsidian-object::after { content:"";position:absolute;inset:12%;border:1px solid rgba(154,201,236,.24);border-radius:22%;box-shadow:inset 1px 1px 28px rgba(119,171,219,.09); }
+.pct-obsidian-object i { position:absolute;inset:24%;border:1px solid rgba(120,184,233,.23);border-radius:20%; }
+.pct-obsidian-object i:nth-child(2) { inset:36%;border-color:rgba(153,207,243,.32); }
+.pct-obsidian-object i:nth-child(3) { inset:46%;border-radius:50%;background:#152e46;box-shadow:0 0 60px rgba(89,157,211,.16); }
+.pct-obsidian-object i:nth-child(4) { inset:-2%;border-radius:25%;border-color:rgba(148,192,230,.07);transform:rotate(15deg); }
+.pct-direction-obsidian .pct-direction-art::after { content:"";position:absolute;inset:0;background:linear-gradient(90deg,#03080e 0%,rgba(3,8,14,.93) 34%,transparent 72%); }
+.pct-direction-infinite { color:#142c48;background:#f1f6fc; }
+.pct-direction-infinite .pct-direction-eyebrow { color:#356a9f; }
+.pct-direction-infinite .pct-direction-description { color:#516b86; }
+.pct-direction-infinite .pct-direction-art { background:radial-gradient(ellipse at 78% 45%,#d4e9fc,#f2f7fc 58%,#edf3fa); }
+.pct-infinite-art { position:absolute;left:63%;top:49%;width:min(58vw,790px);aspect-ratio:1;transform:translate(-50%,-50%) rotate(-20deg);display:grid;grid-template-columns:repeat(3,1fr);gap:2.4%;filter:drop-shadow(0 26px 44px rgba(40,93,145,.13)); }
+.pct-infinite-art span { border:1px solid rgba(80,132,186,.24);border-radius:13%;background:linear-gradient(140deg,rgba(255,255,255,.96),rgba(191,219,246,.28));box-shadow:inset 2px 2px 9px rgba(255,255,255,.9),0 8px 30px rgba(51,116,180,.09); }
+.pct-infinite-art span:nth-child(2),.pct-infinite-art span:nth-child(4),.pct-infinite-art span:nth-child(9) { background:linear-gradient(140deg,rgba(115,171,226,.42),rgba(236,246,255,.8)); }
+.pct-infinite-art span:nth-child(5) { background:linear-gradient(145deg,#3077b8,#123d68);box-shadow:0 0 80px rgba(50,119,187,.2); }
+.pct-direction-infinite .pct-direction-art::after { content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f1f6fc 0%,rgba(241,246,252,.95) 32%,rgba(241,246,252,.1) 80%); }
+@media(max-width:767px) {
+ .pct-direction-hero { min-height:720px;align-items:flex-end; }
+ .pct-direction-hero-inner { padding-block:250px 45px; }
+ .pct-direction-hero h1 { font-size:clamp(44px,11vw,66px);max-width:12ch; }
+ .pct-direction-description { font-size:15px;max-width:42ch; }
+ .pct-direction-signature { margin-top:65px; }
+ .pct-obsidian-object { left:70%;top:23%;width:70vw; }
+ .pct-infinite-art { left:70%;top:22%;width:75vw; }
+ .pct-direction-obsidian .pct-direction-art::after { background:linear-gradient(0deg,#03080e 8%,rgba(3,8,14,.96) 36%,rgba(3,8,14,.1) 83%); }
+ .pct-direction-infinite .pct-direction-art::after { background:linear-gradient(0deg,#f1f6fc 8%,rgba(241,246,252,.96) 36%,rgba(241,246,252,.08) 85%); }
+}
