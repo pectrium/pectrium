@@ -46,3 +46,13 @@
   --pct-gutter-tablet: 24px;
   --pct-gutter-desktop: 32px;
 }
+
+/* Pectrium hybrid visual direction — scoped additions, original tokens retained */
+:root {
+ --pct-hybrid-navy: #0b1423;
+ --pct-hybrid-deep-blue: #172b46;
+ --pct-hybrid-accent: #8cb8ff;
+ --pct-hybrid-light: #f0f4f9;
+ --pct-hybrid-ink: #142338;
+ --pct-hybrid-muted: #526172;
+}
