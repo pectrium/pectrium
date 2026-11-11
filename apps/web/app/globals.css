@@ -633,3 +633,28 @@ a:focus-visible,button:focus-visible { outline:2px solid #8cb8ff;outline-offset:
 @media(prefers-reduced-motion:reduce) {
  .pectrium-hybrid-directory .directory-card { transition:none;transform:none!important; }
 }
+
+
+/* Phase 05 — editorial consistency, deliberate mobile composition and progressive hero artwork. */
+.pectrium-collage-image {
+ background-image:linear-gradient(112deg,rgba(11,20,35,.16),rgba(23,43,70,.18)),url("/media/pectrium/hero/pectrium-cinematic-collage.webp"),url("/brand/human-systems-in-motion.svg");
+ background-position:center,center right,center right;
+ background-size:cover,cover,cover;
+}
+.pectrium-cinematic-hero .pectrium-cinematic-content { position:relative;z-index:2; }
+.pectrium-cinematic-content h1 { letter-spacing:-.055em; }
+.pectrium-cinematic-cta,.pectrium-footer-cta { transition:background-color .2s ease,transform .2s ease; }
+.pectrium-cinematic-cta:hover,.pectrium-footer-cta:hover { transform:translateY(-1px); }
+.inner-hero h1,.inner-hero .inner-deck { text-wrap:balance; }
+.initiative-preview-row h3,.product-family-card h2 { text-wrap:balance; }
+@media(max-width:767px) {
+ .pectrium-cinematic-image { background:#0b1423; }
+ .pectrium-collage-image { background-position:center,68% center,68% center; }
+ .pectrium-cinematic-content { position:relative; }
+ .pectrium-cinematic-content h1 { color:#fff; }
+ .pectrium-cinematic-deck { color:#d5e2f1; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .pectrium-cinematic-cta,.pectrium-footer-cta { transition:none; }
+ .pectrium-cinematic-cta:hover,.pectrium-footer-cta:hover { transform:none; }
+}
