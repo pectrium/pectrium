@@ -8,7 +8,7 @@ const areas=[
  {title:"Connected communities",headline:"Bring people closer to opportunity.",description:"Help people discover local services, useful updates and skills-based opportunities.",href:"/solutions/connected-communities",product:"Connect"}
 ];
 export default function Solutions(){return <PageFrame>
- <PageHero eyebrow="Pectrium / Solutions" title="Built for the way people live and work." description="From everyday work to learning and connected communities, explore the human needs shaping Pectrium's solutions."/>
+ <PageHero eyebrow="Pectrium / Solutions" title="Systems shaped by real-world needs." description="Explore the operational and human challenges that inform Pectrium's software and systems design."/>
  <section className="shell pectrium-solutions" aria-label="Solution areas">{areas.map(item=><article className="pectrium-solution" key={item.href}>
   <div className="pectrium-solution-top"><p className="section-index">{item.title}</p><h2>{item.headline}</h2></div>
   <div className="pectrium-solution-body"><p className="pectrium-solution-need">{item.description}</p><p>Explore the challenges, practical applications and product thinking behind this solution area.</p><Link className="text-link" href={item.href}>Explore {item.title} <span aria-hidden="true">↗</span></Link></div>
