@@ -1,10 +1,25 @@
-import type {Metadata} from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
-import {PageFrame,PageHero} from "@/components/page-frame";
-export const metadata:Metadata={title:"Contact",description:"Pectrium's communication policy and verified contact-channel availability."};
-export default function Contact(){return <PageFrame>
- <PageHero eyebrow="Pectrium / Contact" title="A clear conversation starts with a clear channel." description="We value purposeful conversations about technology, product ideas and the problems worth solving. Official contact details will appear here once verified and approved for publication."/>
- <section className="shell pectrium-detail-intro"><div><p className="section-index">01 / Contact status</p><h2>Verification before publication.</h2></div><div><p className="pectrium-detail-lead">We will not publish an address, inbox or form that has not been confirmed as an official Pectrium channel.</p><p>There is currently no verified contact method published on this page. We would rather be explicit about that limit than create a broken contact experience or direct messages to an unconfirmed account.</p></div></section>
- <section className="pectrium-detail-band"><div className="shell"><p className="section-index">02 / What makes a useful conversation</p><h2>Context changes the quality of an answer.</h2><div className="pectrium-detail-cards"><article><span className="pct-depth-number">01 / NEED</span><h3>Describe the challenge.</h3><p>What is difficult today, who experiences it and why does it matter?</p></article><article><span className="pct-depth-number">02 / ENVIRONMENT</span><h3>Explain the context.</h3><p>Which people, systems, constraints or existing workflows shape the situation?</p></article><article><span className="pct-depth-number">03 / OUTCOME</span><h3>Define meaningful progress.</h3><p>What would become clearer, easier or more dependable if the problem were addressed?</p></article></div></div></section>
- <section className="shell editorial-section"><p className="section-index">03 / In the meantime</p><div><h2>Explore the thinking behind Pectrium.</h2><p>Our published pages explain the needs that guide our work, the technology disciplines that inform it and the distinct development status of our platforms.</p><div className="hero-actions"><Link className="text-link" href="/company">About the company <span aria-hidden="true">↗</span></Link><Link className="text-link" href="/solutions">Explore solutions <span aria-hidden="true">↗</span></Link><Link className="text-link" href="/technology">Technology direction <span aria-hidden="true">↗</span></Link></div></div></section>
- </PageFrame>;}
+import { PageFrame, PageHero } from "@/components/page-frame";
+import { ContactEnquiry } from "@/components/contact-enquiry";
+
+export const metadata: Metadata = {
+ title:"Contact",
+ description:"Contact Pectrium about technology, collaboration, media or general enquiries. Email pectriumgroup@gmail.com or connect on X."
+};
+
+export default function Contact(){
+ return <PageFrame>
+  <PageHero eyebrow="Contact" title="Let’s start a useful conversation." description="Have a question, an idea or an opportunity to explore? Reach Pectrium through our official channels, or choose an enquiry type and compose a message."/>
+  <div className="shell"><ContactEnquiry/></div>
+  <section className="shell pct-depth-section pct-contact-guidance">
+   <div className="pct-depth-heading"><p className="section-index">Before you write</p><h2>A little context goes a long way.</h2><p>There is no formal proposal template. A few useful details help us understand the nature of your enquiry.</p></div>
+   <div className="pct-contact-guidance-grid">
+    <article><h3>What is the opportunity?</h3><p>Introduce the problem, idea or subject you would like to discuss.</p></article>
+    <article><h3>Who is it for?</h3><p>Share the people, organization or setting involved, where relevant.</p></article>
+    <article><h3>What would be useful next?</h3><p>Tell us whether you are looking for a conversation, information or a specific response.</p></article>
+   </div>
+  </section>
+  <section className="editorial-band"><div className="shell editorial-section"><p className="section-index">Explore Pectrium</p><div><h2>Get to know the work behind the conversation.</h2><p>Explore the thinking behind our products, solution areas and engineering direction.</p><Link className="text-link" href="/solutions">Solutions <span aria-hidden="true">↗</span></Link><Link className="text-link" href="/technology">Technology <span aria-hidden="true">↗</span></Link></div></div></section>
+ </PageFrame>;
+}
