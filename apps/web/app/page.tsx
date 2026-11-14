@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { PageFrame } from "@/components/page-frame";
 import { HeroMedia } from "@/components/hero-media";
-import { TechnologySystem } from "@/components/technology-system";
+import { ArchitectureExplorer } from "@/components/architecture-explorer";
+import { EngineeringEvidence } from "@/components/engineering-evidence";
 import { ProductConceptShowcase } from "@/components/product-concept-showcase";
 
 const focus = [
@@ -36,7 +37,7 @@ export default function Home(){return <PageFrame>
   <div className="directory-grid pectrium-focus-grid">{focus.map(item=><Link className="directory-card" href={item.href} key={item.number}><span className="directory-title">{item.title}<span aria-hidden="true">↗</span></span><span className="directory-description">{item.description}</span></Link>)}</div>
   <Link className="text-link pectrium-section-link" href="/solutions">Explore all solutions <span aria-hidden="true">↗</span></Link>
  </div></section>
- <section className="pct-technology-showcase" aria-labelledby="pct-tech-title"><div className="shell"><div className="pct-technology-intro"><p className="section-index">Technology / Systems thinking</p><div><h2 id="pct-tech-title">Intelligence is only as useful as the systems around it.</h2><p>Our technical direction connects software, data, applied intelligence and infrastructure. Explore the disciplines shaping how we approach complex problems.</p></div></div><TechnologySystem/><div className="pct-tech-bottom"><span>Interactive technology overview · Disciplines, not claims of deployed capabilities</span><Link className="text-link" href="/technology">Explore technology <span aria-hidden="true">↗</span></Link></div></div></section>
+ <section className="pct-technology-showcase" aria-labelledby="pct-tech-title"><div className="shell"><div className="pct-technology-intro"><p className="section-index">Technology / Systems thinking</p><div><h2 id="pct-tech-title">Intelligence is only as useful as the systems around it.</h2><p>Our technical direction connects software, data, applied intelligence and infrastructure. Explore the disciplines shaping how we approach complex problems.</p></div></div><ArchitectureExplorer compact/><div className="pct-tech-bottom"><span>Interactive reference architecture · Design considerations, not a deployed system</span><Link className="text-link" href="/technology">Explore technology <span aria-hidden="true">↗</span></Link></div></div></section>
  <section className="pectrium-home-products"><div className="shell">
   <div className="pectrium-section-heading"><p className="section-index">Product directions</p><div><h2>Focused capabilities. Coherent systems.</h2><p>Five complementary product directions across work, intelligence, connectivity and engineering. Individual capabilities and availability depend on development status.</p></div></div>
   <ProductConceptShowcase/>
@@ -45,6 +46,7 @@ export default function Home(){return <PageFrame>
  </div></section>
  <section className="shell editorial-section pectrium-hybrid-approach"><p className="section-index">Engineering</p><div><h2>Precision in approach. Responsibility in execution.</h2><p>Software engineering, applied intelligence and digital infrastructure are disciplines we bring together around defined needs. Our standards emphasize clarity, security, accessibility and maintainability.</p><Link className="text-link" href="/technology">Our technology approach <span aria-hidden="true">↗</span></Link>
  <div className="process-strip" aria-label="Engineering approach"><span>Understand</span><span>Design</span><span>Validate</span></div></div></section>
+ <EngineeringEvidence compact/>
  <section className="pectrium-platform-feature"><div className="shell pectrium-platform-feature-inner"><p className="section-index">Pectrium Platforms</p><div><h2>Distinct platforms. Shared conviction.</h2><p>Quincestone and Ramptium are developed by Pectrium with individual identities and a shared commitment to thoughtful engineering. Development status and public availability are communicated separately.</p><div className="pectrium-platform-names"><span>Quincestone</span><span>Ramptium</span></div><Link className="text-link" href="/platforms">Explore platforms <span aria-hidden="true">↗</span></Link></div></div></section>
  <section className="shell home-bottom"><p className="section-index">The company</p><div><h2>Clarity of purpose. Depth of execution.</h2><p>Discover the principles, people and engineering philosophy guiding Pectrium.</p><Link className="text-link" href="/company">About Pectrium <span aria-hidden="true">↗</span></Link></div></section>
  </PageFrame>;}

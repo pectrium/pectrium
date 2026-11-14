@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 /**
  * Approved Pectrium 24-second cinematic film: four six-second chapters.
  * Until both MP4 assets are committed, keep the feature flag disabled.
- * The static illustration remains the safe fallback.
+ * The non-photographic architectural CSS field is the safe fallback.
  */
 const chapters = ["Focus", "Interaction", "Connection", "Possibility"] as const;
 const videoEnabled = process.env.NEXT_PUBLIC_PECTRIUM_HERO_VIDEO_ENABLED === "true";
@@ -23,7 +23,7 @@ export function HeroMedia() {
   if (video.current.paused) { void video.current.play().catch(() => setPlaying(false)); }
  }
  return <div className={`pectrium-cinematic-image${motionEnabled?" pectrium-motion-alternative":""}`}>
-  {!videoEnabled?<div className="pectrium-collage-stage" aria-hidden="true"><div className="pectrium-collage-image"/><div className="pectrium-collage-glow"/></div>:null}
+  {!videoEnabled?<div className="pct-hero-architecture" aria-hidden="true"><div className="pct-hero-architecture-grid"/><div className="pct-hero-architecture-orbit pct-hero-architecture-orbit-a"/><div className="pct-hero-architecture-orbit pct-hero-architecture-orbit-b"/><div className="pct-hero-architecture-axis"/><div className="pct-hero-architecture-glow"/></div>:null}
   {motionEnabled?<div className="pectrium-motion-atmosphere" aria-hidden="true"><span/><span/><span/></div>:null}
   {videoEnabled?<div className="pectrium-film-frame">
    <video ref={video} className="pectrium-hero-video" autoPlay muted loop playsInline preload="metadata" disablePictureInPicture
